@@ -603,23 +603,28 @@ function drawPulseras(landmarks){
   if (!usable(img)) return;
   // Ancho de la mano (nudillos 5→17). La pulsera se ajusta al grosor real de la muñeca.
   const nudillos = Math.hypot(P(hand,5).x-P(hand,17).x, P(hand,5).y-P(hand,17).y) || len*0.70;
-  const w = nudillos * 1.42 * o.scale;   // ancho total del aro (incluye margen transparente)
-  const h = w * 0.27;                    // aplanamiento por la perspectiva de la muñeca
+  const w = nudillos * 1.85 * o.scale;   // ancho total del aro (incluye margen transparente)
+  const h = w * 0.30;                    // aplanamiento por la perspectiva de la muñeca
   // La muñeca real está un poco más abajo del punto 0 del modelo; bajar el arco
   // evita que parezca flotando por encima del brazo (como si ignorara la gravedad).
   const cx = wrist.x + ux*len*0.04 + o.x*canvas.width;
-  const cy = wrist.y + uy*len*0.04 + (o.y + 0.018)*canvas.height;
+  const cy = wrist.y + uy*len*0.04 + (o.y + 0.022)*canvas.height;
+  // La curva siempre debe caer hacia abajo en pantalla; si la mano apunta hacia
+  // arriba, usamos la otra mitad de la foto y tapamos el lado opuesto.
+  const invertir = uy < 0;
+  const sy = invertir ? img.naturalHeight*0.48 : 0;
+  const ladoOculto = invertir ? 1 : -1;
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(ang + Math.PI/2);
   // Solo la mitad delantera del aro: un arco suave que cruza la muñeca,
   // con los extremos más cortos (perspectiva) en vez de un óvalo plano.
-  ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight*0.52,
+  ctx.drawImage(img, 0, sy, img.naturalWidth, img.naturalHeight*0.52,
                 -w/2, -h/2, w, h);
   ctx.restore();
-  // El trozo que se va hacia el codo se tapa con la piel original:
-  // la pulsera "desaparece" detrás de la muñeca en lugar de flotar.
-  ocluir(c => pathMitad(c, {x:cx,y:cy}, {x:ux,y:uy}, h*0.62, -1));
+  // La mitad que queda "arriba" se tapa con la piel original:
+  // la pulsera se mete detrás de la muñeca en lugar de flotar.
+  ocluir(c => pathMitad(c, {x:cx,y:cy}, {x:ux,y:uy}, h*0.62, ladoOculto));
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
