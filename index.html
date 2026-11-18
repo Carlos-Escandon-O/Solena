@@ -556,14 +556,37 @@ function drawPulseras(landmarks){
   const ux = dx/len, uy = dy/len;
   const ang = Math.atan2(dy,dx);
   const o = state.offsets.pulsera, img = imagenActiva();
-  const w = len * 1.15 * o.scale;
-  const h = w * (img.naturalHeight / img.naturalWidth || 0.6);
-  const cx = wrist.x - ux*w*0.12 + o.x*canvas.width;
-  const cy = wrist.y - uy*w*0.12 + o.y*canvas.height;
-  drawImg(img, cx, cy, w, h, ang + Math.PI/2, 0.5);
-  const eje = {x:ux, y:uy};
-  const lado = ladoLejano(hand, eje, 1, 17);
-  ocluir(c => pathMitad(c, {x:cx,y:cy}, eje, h*0.55, lado));
+  if (!usable(img)) return;
+  // Se dibuja solo el arco frontal de la foto, en tiras que suben al centro:
+  // da la sensación de que la pulsera abraza la muñeca (sin anillo plano).
+  const destW = len * 2.05 * o.scale;
+  const srcH = img.naturalHeight * 0.55;
+  const destH = destW * (srcH / img.naturalWidth);
+  const cx = wrist.x - ux*len*0.10 + o.x*canvas.width;
+  const cy = wrist.y - uy*len*0.10 + o.y*canvas.height;
+  const N = 22;
+  const arco = (sombra) => {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(ang);
+    if (sombra){ ctx.globalAlpha = 0.20; ctx.translate(0, destH*0.10); }
+    for (let i=0;i<N;i++){
+      const t = i/(N-1);
+      const curve = Math.sin(Math.PI*t);
+      const yoff = -destH*0.30*curve;
+      const sh = destH*(0.70 + 0.30*curve);
+      const x = -destW/2 + t*destW;
+      if (sombra){
+        ctx.fillStyle = '#000';
+        ctx.fillRect(x, -sh/2 + yoff, destW/N + 1, sh);
+      } else {
+        ctx.drawImage(img, img.naturalWidth*t, 0, img.naturalWidth/N, srcH, x, -sh/2 + yoff, destW/N + 1, sh);
+      }
+    }
+    ctx.restore();
+  };
+  arco(true);
+  arco(false);
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
