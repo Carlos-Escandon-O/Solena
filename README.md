@@ -12,7 +12,7 @@ Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 ## ✨ Funciones
 
 - **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
-- **Catálogo de 16 piezas** de ejemplo (aretes, collares, anillos y pulseras) con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
+- **Catálogo de 17 piezas**: 16 de ejemplo + 1 pieza real (Collar Vaquero, con imagen propia en `assets/`), con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
 - **Ajuste manual** de posición y tamaño, dedo para anillos, muñeca para pulseras, y opción de subir tu propia joya en PNG.
 - **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
 - **Foto descargable** y botón compartir.
@@ -54,8 +54,13 @@ GitHub Pages tarda ~1 minuto en reflejarlo.
 ## 📸 Poner tus piezas reales
 
 1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Yo puedo quitar el fondo si me la mandas.
-2. Reemplaza el array `CATALOGO` en `index.html` con tus piezas reales: `nombre`, `tipo`, `cat`, `precio` y la ruta de la imagen.
-3. Con 5–10 piezas ya tienes el catálogo completo.
+2. Reemplaza el array `CATALOGO` en `index.html` con tus piezas reales: `nombre`, `tipo`, `cat`, `precio` y `src` con la ruta de la imagen. Ejemplo ya implementado:
+
+```js
+{ id:'c5', nombre:'Collar Vaquero', tipo:'collar', cat:'oro', precio:850, src:'assets/collar-vaquero.png' }
+```
+
+3. Con 5–10 piezas ya tienes el catálogo completo. Las imágenes van en `assets/` y se recortan con fondo transparente (ver `ESPECIFICACIONES_FOTOS.md`).
 
 ## Notas
 

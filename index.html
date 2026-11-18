@@ -310,6 +310,7 @@ const CATALOGO = [
   { id:'c2', nombre:'Collar Brisa',    tipo:'collar', cat:'plata',   precio:520 },
   { id:'c3', nombre:'Collar Perla',    tipo:'collar', cat:'perlas',  precio:780 },
   { id:'c4', nombre:'Collar Cuarzo',   tipo:'collar', cat:'piedras', precio:640 },
+  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png' },
   { id:'r1', nombre:'Anillo Aurora',   tipo:'anillo', cat:'oro',     precio:450 },
   { id:'r2', nombre:'Anillo Luna',     tipo:'anillo', cat:'plata',   precio:340 },
   { id:'r3', nombre:'Anillo Amatista', tipo:'anillo', cat:'piedras', precio:520 },
@@ -317,7 +318,7 @@ const CATALOGO = [
   { id:'p2', nombre:'Pulsera Brisa',   tipo:'pulsera', cat:'plata',   precio:390 },
   { id:'p3', nombre:'Pulsera Perla',   tipo:'pulsera', cat:'perlas',  precio:610 },
   { id:'p4', nombre:'Pulsera Amatista',tipo:'pulsera', cat:'piedras', precio:580 }
-].map(p => ({ ...p, img: loadImg(jewelSVG(p.tipo, p.cat)) }));
+].map(p => ({ ...p, img: loadImg(p.src || jewelSVG(p.tipo, p.cat)) }));
 
 state.pieza = CATALOGO[0];
 
