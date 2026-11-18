@@ -64,6 +64,7 @@ GitHub Pages tarda ~1 minuto en reflejarlo.
 
 ## Notas
 
+- **Oclusión:** el cuello tapa la parte trasera del collar, y la muñeca o el dedo tapan la parte de atrás de pulseras y anillos, para que se vean puestos y no dibujados encima.
 - El collar es aproximado (la malla facial no cubre el cuello), por eso tiene controles de ajuste. Aretes, anillos y pulseras son más precisos.
 - Funciona mejor con buena luz y la cara o mano bien visibles.
 - Las fotos que sube cada persona no se envían a ningún servidor: se procesan en su propio navegador.

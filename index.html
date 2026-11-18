@@ -301,6 +301,7 @@ function jewelSVG(tipo, cat){
 }
 
 const CATALOGO = [
+  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png' },
   { id:'a1', nombre:'Aretes Sol',      tipo:'aretes', cat:'oro',     precio:380 },
   { id:'a2', nombre:'Aretes Luna',     tipo:'aretes', cat:'plata',   precio:290 },
   { id:'a3', nombre:'Aretes Perla',    tipo:'aretes', cat:'perlas',  precio:420 },
@@ -310,7 +311,6 @@ const CATALOGO = [
   { id:'c2', nombre:'Collar Brisa',    tipo:'collar', cat:'plata',   precio:520 },
   { id:'c3', nombre:'Collar Perla',    tipo:'collar', cat:'perlas',  precio:780 },
   { id:'c4', nombre:'Collar Cuarzo',   tipo:'collar', cat:'piedras', precio:640 },
-  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png' },
   { id:'r1', nombre:'Anillo Aurora',   tipo:'anillo', cat:'oro',     precio:450 },
   { id:'r2', nombre:'Anillo Luna',     tipo:'anillo', cat:'plata',   precio:340 },
   { id:'r3', nombre:'Anillo Amatista', tipo:'anillo', cat:'piedras', precio:520 },
@@ -321,6 +321,7 @@ const CATALOGO = [
 ].map(p => ({ ...p, img: loadImg(p.src || jewelSVG(p.tipo, p.cat)) }));
 
 state.pieza = CATALOGO[0];
+state.tipo = state.pieza.tipo;
 
 /* ---------- Contador social (real, por día / sesión / pieza) ---------- */
 function hoy(){
@@ -436,6 +437,30 @@ function drawImg(img, cx, cy, w, h, rot=0, anchorY=0.5){
   ctx.drawImage(img, -w/2, -h*anchorY, w, h);
   ctx.restore();
 }
+
+/* Vuelve a dibujar el fotograma recortado a una zona: el cuerpo tapa la joya */
+let frameSource = null;
+function ocluir(pathFn){
+  if (!frameSource) return;
+  ctx.save();
+  ctx.beginPath(); pathFn(ctx); ctx.clip();
+  ctx.drawImage(frameSource, 0,0,canvas.width,canvas.height);
+  ctx.restore();
+}
+function pathCuello(c, lm){
+  const chin=P(lm,152), fore=P(lm,10), jawL=P(lm,234), jawR=P(lm,454);
+  const fh=Math.hypot(fore.x-chin.x, fore.y-chin.y);
+  const jaw=Math.hypot(jawR.x-jawL.x, jawR.y-jawL.y);
+  c.ellipse((jawL.x+jawR.x)/2, chin.y + fh*0.20, jaw*0.30, fh*0.26, 0, 0, Math.PI*2);
+}
+function pathFranja(c, punto, dir, largo, ancho){
+  const ux=dir.x, uy=dir.y, nx=-uy, ny=ux;
+  c.moveTo(punto.x-ux*largo+nx*ancho, punto.y-uy*largo+ny*ancho);
+  c.lineTo(punto.x+ux*largo+nx*ancho, punto.y+uy*largo+ny*ancho);
+  c.lineTo(punto.x+ux*largo-nx*ancho, punto.y+uy*largo-ny*ancho);
+  c.lineTo(punto.x-ux*largo-nx*ancho, punto.y-uy*largo-ny*ancho);
+  c.closePath();
+}
 function drawEarrings(lm){
   const earA = avg(lm,[234,127,93,132]);
   const earB = avg(lm,[454,356,323,361]);
@@ -458,17 +483,22 @@ function drawNecklace(lm){
   const w = jaw * 1.75 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 0.8);
   drawImg(img, cx, topY, w, h, 0, 0.10);
+  ocluir(c => pathCuello(c, lm));
 }
 function drawRings(landmarks){
   if (!landmarks || !landmarks.length) return;
   const hand = landmarks[0], f = DEDOS[state.dedo];
   const pip = P(hand,f.pip), mcp = P(hand,f.mcp), dip = P(hand,Math.min(f.pip+1,20));
-  const ang = Math.atan2(dip.y-mcp.y, dip.x-mcp.x);
+  const dx = dip.x-mcp.x, dy = dip.y-mcp.y;
+  const lenD = Math.hypot(dx,dy) || 1;
+  const ang = Math.atan2(dy,dx);
   const fingerLen = Math.hypot(pip.x-mcp.x, pip.y-mcp.y);
   const o = state.offsets.anillo, img = imagenActiva();
   const w = fingerLen * 1.9 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
-  drawImg(img, pip.x + o.x*canvas.width, pip.y + o.y*canvas.height, w, h, ang + Math.PI/2, 0.5);
+  const px = pip.x + o.x*canvas.width, py = pip.y + o.y*canvas.height;
+  drawImg(img, px, py, w, h, ang + Math.PI/2, 0.5);
+  ocluir(c => pathFranja(c, {x:px,y:py}, {x:dx/lenD,y:dy/lenD}, fingerLen*1.5, fingerLen*0.18*o.scale));
 }
 function drawPulseras(landmarks){
   if (!landmarks || !landmarks.length) return;
@@ -484,6 +514,7 @@ function drawPulseras(landmarks){
   const cx = wrist.x - ux*w*0.12 + o.x*canvas.width;
   const cy = wrist.y - uy*w*0.12 + o.y*canvas.height;
   drawImg(img, cx, cy, w, h, ang + Math.PI/2, 0.5);
+  ocluir(c => pathFranja(c, {x:cx,y:cy}, {x:ux,y:uy}, len*1.5, len*0.13*o.scale));
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
@@ -499,6 +530,7 @@ function pintarSobre(faces, hands){
 function loop(){
   if (state.modo !== 'camara' || !state.cameraOn){ looping = false; return; }
   if (video.readyState >= 2){
+    frameSource = video;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.drawImage(video,0,0,canvas.width,canvas.height);
     const now = Math.max(performance.now(), lastTime+1);
@@ -512,6 +544,7 @@ function loop(){
 /* ---------- Modo foto ---------- */
 function renderPhoto(){
   if (!state.photo || !faceImg || !handImg) return;
+  frameSource = state.photo;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.drawImage(state.photo,0,0,canvas.width,canvas.height);
   if (usaManos()) pintarSobre(null, handImg.detect(state.photo).landmarks);
