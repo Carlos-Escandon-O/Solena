@@ -301,7 +301,7 @@ function jewelSVG(tipo, cat){
 }
 
 const CATALOGO = [
-  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png' },
+  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png', recortar:true },
   { id:'a1', nombre:'Aretes Sol',      tipo:'aretes', cat:'oro',     precio:380 },
   { id:'a2', nombre:'Aretes Luna',     tipo:'aretes', cat:'plata',   precio:290 },
   { id:'a3', nombre:'Aretes Perla',    tipo:'aretes', cat:'perlas',  precio:420 },
@@ -492,12 +492,16 @@ function drawNecklace(lm){
   const topY = chin.y + fh*0.10 + o.y*canvas.height;
   const w = jaw * 1.75 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 0.8);
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, topY + h*0.16, canvas.width, canvas.height);
-  ctx.clip();
-  drawImg(img, cx, topY, w, h, 0, 0.10);
-  ctx.restore();
+  if (state.pieza && state.pieza.recortar){
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, topY + h*0.16, canvas.width, canvas.height);
+    ctx.clip();
+    drawImg(img, cx, topY, w, h, 0, 0.10);
+    ctx.restore();
+  } else {
+    drawImg(img, cx, topY, w, h, 0, 0.10);
+  }
   ocluir(c => pathCuello(c, lm));
 }
 function drawRings(landmarks){
