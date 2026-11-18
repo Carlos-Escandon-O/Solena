@@ -454,9 +454,16 @@ function pathCuello(c, lm){
   c.ellipse((jawL.x+jawR.x)/2, chin.y + fh*0.12, jaw*0.42, fh*0.30, 0, 0, Math.PI*2);
 }
 /* Oculta solo la mitad "de atrás" (la de arriba), dejando un arco continuo */
-function pathMitad(c, punto, dir, largo){
-  let nx=-dir.y, ny=dir.x;
-  if(ny>0){ nx=-nx; ny=-ny; }
+/* El tracker decide qué mitad queda atrás usando la profundidad (z) */
+function ladoLejano(hand, eje, iA, iB){
+  const a=P(hand,iA), b=P(hand,iB);
+  const proj=(b.x-a.x)*eje.x + (b.y-a.y)*eje.y;
+  const dz=(hand[iB].z||0) - (hand[iA].z||0);
+  if(Math.abs(dz) < 0.01) return eje.y >= 0 ? -1 : 1;
+  return (dz * (proj >= 0 ? 1 : -1)) >= 0 ? 1 : -1;
+}
+function pathMitad(c, punto, eje, largo, lado){
+  const nx=eje.x*lado, ny=eje.y*lado;
   const ancho=canvas.width*2, tx=-ny, ty=nx;
   c.moveTo(punto.x+tx*ancho, punto.y+ty*ancho);
   c.lineTo(punto.x+nx*largo+tx*ancho, punto.y+ny*largo+ty*ancho);
@@ -506,7 +513,9 @@ function drawRings(landmarks){
   const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
   const px = pip.x + o.x*canvas.width, py = pip.y + o.y*canvas.height;
   drawImg(img, px, py, w, h, ang + Math.PI/2, 0.5);
-  ocluir(c => pathMitad(c, {x:px,y:py}, {x:dx/lenD,y:dy/lenD}, w*0.75));
+  const eje = {x:dx/lenD, y:dy/lenD};
+  const lado = ladoLejano(hand, eje, f.mcp, f.pip);
+  ocluir(c => pathMitad(c, {x:px,y:py}, eje, h*0.55, lado));
 }
 function drawPulseras(landmarks){
   if (!landmarks || !landmarks.length) return;
@@ -522,7 +531,9 @@ function drawPulseras(landmarks){
   const cx = wrist.x - ux*w*0.12 + o.x*canvas.width;
   const cy = wrist.y - uy*w*0.12 + o.y*canvas.height;
   drawImg(img, cx, cy, w, h, ang + Math.PI/2, 0.5);
-  ocluir(c => pathMitad(c, {x:cx,y:cy}, {x:ux,y:uy}, w*0.75));
+  const eje = {x:ux, y:uy};
+  const lado = ladoLejano(hand, eje, 1, 17);
+  ocluir(c => pathMitad(c, {x:cx,y:cy}, eje, h*0.55, lado));
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
