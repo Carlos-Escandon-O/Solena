@@ -114,7 +114,7 @@
     <div class="placeholder" id="placeholder">
       <div class="ring-icon" id="phIcon">💍</div>
       <h2 id="phTitle">Pruébate en Solena</h2>
-      <p id="phText">Activa tu cámara para ver cómo te quedan aretes, collares y anillos en tiempo real.</p>
+      <p id="phText">Activa tu cámara para ver cómo te quedan aretes, collares, anillos y pulseras en tiempo real.</p>
       <button class="btn" id="startBtn" style="max-width:240px">Activar cámara</button>
       <div class="status" id="status"></div>
     </div>
@@ -160,6 +160,7 @@
         <button class="tab active" data-tipo="aretes">Aretes</button>
         <button class="tab" data-tipo="collar">Collar</button>
         <button class="tab" data-tipo="anillo">Anillo</button>
+        <button class="tab" data-tipo="pulsera">Pulsera</button>
       </div>
       <div class="row" id="dedoRow" style="display:none">
         <label for="dedo">Dedo</label>
@@ -235,11 +236,12 @@ const state = {
   modo: 'camara',
   cameraOn: false,
   photo: null,
-  custom: { aretes: null, collar: null, anillo: null },
+  custom: { aretes: null, collar: null, anillo: null, pulsera: null },
   offsets: {
     aretes: { x: 0, y: 0.012, scale: 1 },
     collar: { x: 0, y: 0.02, scale: 1 },
-    anillo: { x: 0, y: 0, scale: 1 }
+    anillo: { x: 0, y: 0, scale: 1 },
+    pulsera: { x: 0, y: 0, scale: 1 }
   }
 };
 
@@ -281,6 +283,15 @@ function jewelSVG(tipo, cat){
       <circle cx="148" cy="54" r="7" fill="#fff" opacity=".7"/>`;
     return svgURI(`<svg ${ns} width="320" height="180" viewBox="0 0 320 180">${defs}${body}</svg>`);
   }
+  if (tipo === 'pulsera'){
+    body = `<ellipse cx="200" cy="132" rx="150" ry="62" fill="none" stroke="url(#m)" stroke-width="16"/>
+      <circle cx="200" cy="62" r="18" fill="url(#m)"/>
+      <circle cx="200" cy="62" r="12" fill="url(#g)"/>
+      <circle cx="118" cy="94" r="9" fill="url(#g)"/>
+      <circle cx="282" cy="94" r="9" fill="url(#g)"/>
+      <path d="M188 50 L200 38 L212 50 Z" fill="#fff" opacity=".6"/>`;
+    return svgURI(`<svg ${ns} width="400" height="240" viewBox="0 0 400 240">${defs}${body}</svg>`);
+  }
   body = `<path d="M40 40 Q200 250 360 40" fill="none" stroke="url(#m)" stroke-width="10" stroke-linecap="round"/>
     <line x1="200" y1="145" x2="200" y2="172" stroke="url(#m)" stroke-width="7"/>
     <path d="M200 165 L245 215 L200 285 L155 215 Z" fill="url(#m)"/>
@@ -301,7 +312,11 @@ const CATALOGO = [
   { id:'c4', nombre:'Collar Cuarzo',   tipo:'collar', cat:'piedras', precio:640 },
   { id:'r1', nombre:'Anillo Aurora',   tipo:'anillo', cat:'oro',     precio:450 },
   { id:'r2', nombre:'Anillo Luna',     tipo:'anillo', cat:'plata',   precio:340 },
-  { id:'r3', nombre:'Anillo Amatista', tipo:'anillo', cat:'piedras', precio:520 }
+  { id:'r3', nombre:'Anillo Amatista', tipo:'anillo', cat:'piedras', precio:520 },
+  { id:'p1', nombre:'Pulsera Aurora',  tipo:'pulsera', cat:'oro',     precio:520 },
+  { id:'p2', nombre:'Pulsera Brisa',   tipo:'pulsera', cat:'plata',   precio:390 },
+  { id:'p3', nombre:'Pulsera Perla',   tipo:'pulsera', cat:'perlas',  precio:610 },
+  { id:'p4', nombre:'Pulsera Amatista',tipo:'pulsera', cat:'piedras', precio:580 }
 ].map(p => ({ ...p, img: loadImg(jewelSVG(p.tipo, p.cat)) }));
 
 state.pieza = CATALOGO[0];
@@ -454,8 +469,25 @@ function drawRings(landmarks){
   const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
   drawImg(img, pip.x + o.x*canvas.width, pip.y + o.y*canvas.height, w, h, ang + Math.PI/2, 0.5);
 }
+function drawPulseras(landmarks){
+  if (!landmarks || !landmarks.length) return;
+  const hand = landmarks[0];
+  const wrist = P(hand,0), mcp = P(hand,9);
+  const dx = mcp.x - wrist.x, dy = mcp.y - wrist.y;
+  const len = Math.hypot(dx,dy) || 1;
+  const ux = dx/len, uy = dy/len;
+  const ang = Math.atan2(dy,dx);
+  const o = state.offsets.pulsera, img = imagenActiva();
+  const w = len * 1.15 * o.scale;
+  const h = w * (img.naturalHeight / img.naturalWidth || 0.6);
+  const cx = wrist.x - ux*w*0.12 + o.x*canvas.width;
+  const cy = wrist.y - uy*w*0.12 + o.y*canvas.height;
+  drawImg(img, cx, cy, w, h, ang + Math.PI/2, 0.5);
+}
+function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
   if (state.tipo === 'anillo') drawRings(hands);
+  else if (state.tipo === 'pulsera') drawPulseras(hands);
   else if (faces && faces.length){
     if (state.tipo === 'aretes') drawEarrings(faces[0]);
     else drawNecklace(faces[0]);
@@ -470,7 +502,7 @@ function loop(){
     ctx.drawImage(video,0,0,canvas.width,canvas.height);
     const now = Math.max(performance.now(), lastTime+1);
     lastTime = now;
-    if (state.tipo === 'anillo') pintarSobre(null, handLandmarker.detectForVideo(video,now).landmarks);
+    if (usaManos()) pintarSobre(null, handLandmarker.detectForVideo(video,now).landmarks);
     else pintarSobre(faceLandmarker.detectForVideo(video,now).faceLandmarks, null);
   }
   requestAnimationFrame(loop);
@@ -481,7 +513,7 @@ function renderPhoto(){
   if (!state.photo || !faceImg || !handImg) return;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.drawImage(state.photo,0,0,canvas.width,canvas.height);
-  if (state.tipo === 'anillo') pintarSobre(null, handImg.detect(state.photo).landmarks);
+  if (usaManos()) pintarSobre(null, handImg.detect(state.photo).landmarks);
   else pintarSobre(faceImg.detect(state.photo).faceLandmarks, null);
   document.getElementById('result').classList.remove('show');
 }
@@ -541,7 +573,7 @@ function setModo(modo){
   } else {
     document.getElementById('phIcon').textContent = '💍';
     document.getElementById('phTitle').textContent = 'Pruébate en Solena';
-    document.getElementById('phText').textContent = 'Activa tu cámara para ver cómo te quedan aretes, collares y anillos en tiempo real.';
+    document.getElementById('phText').textContent = 'Activa tu cámara para ver cómo te quedan aretes, collares, anillos y pulseras en tiempo real.';
     document.getElementById('startBtn').style.display = state.cameraOn ? 'none' : 'block';
     if (state.cameraOn){ placeholder.classList.add('hidden'); if (!looping) loop(); }
   }
@@ -569,7 +601,7 @@ document.getElementById('dedo').onchange = e => { state.dedo = parseInt(e.target
   };
 });
 document.getElementById('resetBtn').onclick = () => {
-  const defs = { aretes:{x:0,y:.012,scale:1}, collar:{x:0,y:.02,scale:1}, anillo:{x:0,y:0,scale:1} };
+  const defs = { aretes:{x:0,y:.012,scale:1}, collar:{x:0,y:.02,scale:1}, anillo:{x:0,y:0,scale:1}, pulsera:{x:0,y:0,scale:1} };
   state.offsets[state.tipo] = {...defs[state.tipo]};
   syncControls(); refrescar();
 };

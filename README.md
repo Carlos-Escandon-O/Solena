@@ -1,7 +1,7 @@
 # Solena · Probador virtual
 
 Probador virtual de joyería que funciona en el navegador, sin instalar nada.
-Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, collar y anillos en tiempo real.
+Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, collar, anillos y pulseras en tiempo real.
 
 ## 🌐 Sitio en vivo
 
@@ -12,8 +12,8 @@ Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 ## ✨ Funciones
 
 - **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
-- **Catálogo de 12 piezas** de ejemplo con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
-- **Ajuste manual** de posición y tamaño, dedo para anillos, y opción de subir tu propia joya en PNG.
+- **Catálogo de 16 piezas** de ejemplo (aretes, collares, anillos y pulseras) con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
+- **Ajuste manual** de posición y tamaño, dedo para anillos, muñeca para pulseras, y opción de subir tu propia joya en PNG.
 - **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
 - **Foto descargable** y botón compartir.
 - **Contador social diario.**
@@ -59,7 +59,7 @@ GitHub Pages tarda ~1 minuto en reflejarlo.
 
 ## Notas
 
-- El collar es aproximado (la malla facial no cubre el cuello), por eso tiene controles de ajuste. Aretes y anillos son más precisos.
+- El collar es aproximado (la malla facial no cubre el cuello), por eso tiene controles de ajuste. Aretes, anillos y pulseras son más precisos.
 - Funciona mejor con buena luz y la cara o mano bien visibles.
 - Las fotos que sube cada persona no se envían a ningún servidor: se procesan en su propio navegador.
 - Librerías: MediaPipe Tasks Vision v0.10.14 (CDN). Sin costos ni API keys.

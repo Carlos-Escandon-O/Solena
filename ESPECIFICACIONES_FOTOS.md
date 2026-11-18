@@ -45,6 +45,13 @@ Usa la IA **solo para limpiar/recortar/fondo transparente**. No le pidas que "me
 - Proporción ideal: **1200 × 675 px**.
 - Centrado, sin sombra interior.
 
+### Pulseras
+- **Una pulsera**, vista frontal: la pulsera formando una **elipse horizontal** (como si estuviera puesta en la muñeca vista de frente).
+- El eje largo de la elipse debe estar **horizontal** (el probador lo gira según la orientación de la muñeca).
+- Si tiene dije o colgantes, que queden **arriba y centrados**.
+- Proporción ideal: **1200 × 720 px**.
+- Centrada, sin sombra interior.
+
 ---
 
 ## Prompt para tu IA (copiar y pegar)
@@ -83,11 +90,18 @@ Un anillo en vista frontal: argolla como elipse horizontal, piedra arriba y cent
 Lienzo 1200 × 675 px. El eje largo de la argolla queda horizontal.
 ```
 
+**Pulseras:**
+```
+Una pulsera en vista frontal: banda o cadena formando una elipse horizontal,
+como puesta en una muñeca. Si tiene dije, queda arriba y centrado.
+Lienzo 1200 × 720 px. El eje largo de la elipse queda horizontal.
+```
+
 ---
 
 ## Cómo entregármelas
 
-1. Nombra los archivos así: `aretes-sol.png`, `collar-perla.png`, `anillo-aurora.png`.
+1. Nombra los archivos así: `aretes-sol.png`, `collar-perla.png`, `anillo-aurora.png`, `pulsera-brisa.png`.
 2. Pásame también esta tabla (o dímela en el chat):
 
 | id | nombre | tipo | categoría | precio |
@@ -95,8 +109,9 @@ Lienzo 1200 × 675 px. El eje largo de la argolla queda horizontal.
 | a1 | Aretes Sol | aretes | oro | 380 |
 | c3 | Collar Perla | collar | perlas | 780 |
 | r2 | Anillo Luna | anillo | plata | 340 |
+| p2 | Pulsera Brisa | pulsera | plata | 390 |
 
 Categorías válidas: `oro`, `plata`, `perlas`, `piedras`.
-Tipos válidos: `aretes`, `collar`, `anillo`.
+Tipos válidos: `aretes`, `collar`, `anillo`, `pulsera`.
 
 Con eso reemplazo el `CATALOGO` y el mismo QR empieza a mostrar tus piezas reales.
