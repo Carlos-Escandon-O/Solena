@@ -1,4 +1,4 @@
-# Especificaciones de fotos para el catálogo de Solena
+# Especificaciones de fotos para el catálogo de Solenna
 
 Esto es lo que necesito para reemplazar las piezas de ejemplo por tus joyas reales.
 

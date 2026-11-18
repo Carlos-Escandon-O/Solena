@@ -1,11 +1,11 @@
-# Solena · Probador virtual
+# Solenna · Probador virtual
 
 Probador virtual de joyería que funciona en el navegador, sin instalar nada.
 Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, collar, anillos y pulseras en tiempo real.
 
 ## 🌐 Sitio en vivo
 
-**https://carlos-escandon-o.github.io/Solena/**
+**https://carlos-escandon-o.github.io/Solenna/**
 
 Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 
@@ -33,9 +33,9 @@ const BASE_PRUEBAS_REALES_POR_PIEZA = {};         // solo con pruebas reales doc
 
 ## 📱 Cartel QR para el bazar
 
-![Cartel QR de Solena](cartel-qr-solena.png)
+![Cartel QR de Solenna](cartel-qr-solenna.png)
 
-`cartel-qr-solena.png` está listo para imprimir. Si cambias la URL, regenera:
+`cartel-qr-solenna.png` está listo para imprimir. Si cambias la URL, regenera:
 
 ```bash
 python3 generar_qr.py   # requiere: pip install qrcode pillow
