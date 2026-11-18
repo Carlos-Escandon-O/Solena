@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solenna · Administrar inventario</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{--bg:#f7f3ea;--ink:#241f19;--muted:#7a7062;--gold:#b8892b;--line:#e2d8c5;--card:#fffdf8;--red:#a33;--green:#3c7d4a}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh}
+  header{padding:26px 20px 8px;text-align:center}
+  header h1{font-family:Georgia,serif;margin:0;font-size:26px;letter-spacing:.08em}
+  header p{margin:6px 0 0;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 26px rgba(60,45,20,.07)}
+  .card + .card{margin-top:16px}
+  .hidden{display:none!important}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+  input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:14px}
+  .grid-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid-form{grid-template-columns:1fr}}
+  .btn{display:inline-block;padding:12px 18px;border:0;border-radius:11px;background:linear-gradient(135deg,#c99a37,#a8761f);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);font-weight:500}
+  .btn.danger{background:#a33}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .msg{font-size:13px;margin-top:12px;line-height:1.5}
+  .msg.error{color:var(--red)}
+  .msg.ok{color:var(--green)}
+  .hint{font-size:11px;color:#9a8f7e;line-height:1.6;margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 6px;border-bottom:1px solid var(--line)}
+  td{padding:6px;border-bottom:1px solid #f0eade;vertical-align:top}
+  td input,td select{padding:7px;font-size:12px}
+  td.num input{max-width:90px}
+  td.chk{text-align:center}
+  td.chk input{width:auto}
+  .tabla-wrap{overflow-x:auto}
+  tbody tr.agotada{opacity:.6}
+  .eliminar{padding:6px 9px;font-size:12px}
+  .resumen{font-size:12px;color:var(--muted);margin:10px 0 0}
+  a{color:var(--gold)}
+  code{background:#f3ecdd;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Solenna</h1>
+  <p>Panel de inventario</p>
+</header>
+
+<main>
+  <section class="card" id="loginCard">
+    <h2 style="font-size:16px;margin:0 0 14px">Acceso</h2>
+    <div class="grid-form">
+      <div>
+        <label for="token">Token de GitHub (contraseña)</label>
+        <input type="password" id="token" placeholder="github_pat_... o ghp_..." autocomplete="off">
+      </div>
+      <div>
+        <label for="repo">Repositorio</label>
+        <input type="text" id="repo" value="Carlos-Escandon-O/Solenna">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="entrarBtn">Entrar</button>
+    </div>
+    <p class="msg" id="loginMsg"></p>
+    <p class="hint">
+      Este panel es público, pero <strong>solo quien tiene tu token puede guardar cambios</strong>.
+      El token se guarda únicamente en este navegador y se envía solo a la API de GitHub.
+      Crea un <strong>Fine-grained token</strong> con permiso <code>Contents: read and write</code>
+      sobre este repositorio. No lo compartas.
+    </p>
+  </section>
+
+  <section class="card hidden" id="panelCard">
+    <div class="btn-row" style="margin-top:0;justify-content:space-between">
+      <div>
+        <h2 style="font-size:16px;margin:0">Inventario</h2>
+        <p class="resumen" id="resumen"></p>
+      </div>
+      <div>
+        <button class="btn secondary" id="recargarBtn">Recargar</button>
+        <button class="btn secondary" id="salirBtn">Salir</button>
+      </div>
+    </div>
+
+    <div class="tabla-wrap" style="margin-top:16px">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px">ID</th>
+            <th>Nombre</th>
+            <th style="width:110px">Tipo</th>
+            <th style="width:110px">Categoría</th>
+            <th class="num" style="width:100px">Precio</th>
+            <th class="num" style="width:90px">Stock</th>
+            <th style="width:170px">Imagen (src)</th>
+            <th class="chk" style="width:60px">Recortar</th>
+            <th style="width:50px"></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn secondary" id="agregarBtn">+ Agregar pieza</button>
+      <button class="btn" id="guardarBtn">Guardar cambios</button>
+    </div>
+    <p class="msg" id="panelMsg"></p>
+    <p class="hint">
+      Al guardar se actualiza <code>catalogo.json</code> y la web pública lo refleja en ~1 minuto.
+      Stock en 0 = aparece como "Agotado" y el botón de WhatsApp se desactiva.
+    </p>
+  </section>
+</main>
+
+<script>
+const TOKEN_KEY = 'solenna_admin_token';
+const REPO_KEY = 'solenna_admin_repo';
+const FILE = 'catalogo.json';
+const BRANCH = 'main';
+
+const $ = id => document.getElementById(id);
+let sha = '';
+let datos = [];
+
+function b64decode(s){
+  const bin = atob(s.replace(/\s/g,''));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+function b64encode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin=''; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function headers(){
+  return {
+    'Authorization': 'Bearer ' + $('token').value.trim(),
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
+}
+function repo(){ return $('repo').value.trim(); }
+function msg(el, texto, tipo=''){ el.textContent = texto; el.className = 'msg ' + tipo; }
+
+async function cargar(){
+  const r = await fetch(`https://api.github.com/repos/${repo()}/contents/${FILE}?ref=${BRANCH}`, { headers: headers() });
+  if(!r.ok){
+    const j = await r.json().catch(()=>({}));
+    throw new Error(j.message || ('HTTP ' + r.status));
+  }
+  const j = await r.json();
+  sha = j.sha;
+  const parsed = JSON.parse(b64decode(j.content));
+  if(!Array.isArray(parsed)) throw new Error('catalogo.json no es una lista');
+  datos = parsed;
+  pintar();
+}
+
+function opciones(valor, valores){
+  return valores.map(v => `<option value="${v}" ${v===valor?'selected':''}>${v}</option>`).join('');
+}
+
+function pintar(){
+  const tipos = ['aretes','collar','anillo','pulsera'];
+  const cats = ['oro','plata','perlas','piedras'];
+  $('tbody').innerHTML = datos.map((p,i) => `
+    <tr class="${Number(p.stock)<=0?'agotada':''}" data-i="${i}">
+      <td><input data-campo="id" value="${p.id||''}"></td>
+      <td><input data-campo="nombre" value="${(p.nombre||'').replace(/"/g,'&quot;')}"></td>
+      <td><select data-campo="tipo">${opciones(p.tipo,tipos)}</select></td>
+      <td><select data-campo="cat">${opciones(p.cat,cats)}</select></td>
+      <td class="num"><input data-campo="precio" type="number" min="0" step="10" value="${p.precio??0}"></td>
+      <td class="num"><input data-campo="stock" type="number" min="0" step="1" value="${p.stock??0}"></td>
+      <td><input data-campo="src" value="${p.src||''}" placeholder="assets/..."></td>
+      <td class="chk"><input data-campo="recortar" type="checkbox" ${p.recortar?'checked':''}></td>
+      <td><button class="btn danger eliminar" data-eliminar="${i}">×</button></td>
+    </tr>`).join('');
+
+  $('tbody').querySelectorAll('[data-campo]').forEach(el => {
+    el.onchange = () => leerTabla();
+  });
+  $('tbody').querySelectorAll('[data-eliminar]').forEach(b => {
+    b.onclick = () => { datos.splice(Number(b.dataset.eliminar),1); pintar(); };
+  });
+  const total = datos.length;
+  const agotados = datos.filter(p => Number(p.stock)<=0).length;
+  $('resumen').textContent = `${total} piezas · ${agotados} agotadas`;
+}
+
+function leerTabla(){
+  $('tbody').querySelectorAll('tr').forEach(tr => {
+    const i = Number(tr.dataset.i);
+    if(!datos[i]) return;
+    tr.querySelectorAll('[data-campo]').forEach(el => {
+      const c = el.dataset.campo;
+      if(c==='recortar') datos[i][c] = el.checked;
+      else if(c==='precio'||c==='stock') datos[i][c] = Number(el.value) || 0;
+      else datos[i][c] = el.value.trim();
+    });
+  });
+  $('resumen').textContent = `${datos.length} piezas · ${datos.filter(p=>Number(p.stock)<=0).length} agotadas`;
+}
+
+function validar(){
+  const ids = new Set();
+  for(const p of datos){
+    if(!p.id || !p.nombre || !p.precio || p.precio<=0) return 'Toda pieza necesita ID, nombre y precio mayor a 0.';
+    if(ids.has(p.id)) return 'ID repetido: ' + p.id;
+    ids.add(p.id);
+    if(!['aretes','collar','anillo','pulsera'].includes(p.tipo)) return 'Tipo inválido en ' + p.id;
+    if(!['oro','plata','perlas','piedras'].includes(p.cat)) return 'Categoría inválida en ' + p.id;
+  }
+  return '';
+}
+
+$('entrarBtn').onclick = async () => {
+  const t = $('token').value.trim();
+  if(!t){ msg($('loginMsg'),'Pega tu token de GitHub.','error'); return; }
+  localStorage.setItem(TOKEN_KEY, t);
+  localStorage.setItem(REPO_KEY, repo());
+  msg($('loginMsg'),'Conectando…');
+  try{
+    await cargar();
+    $('loginCard').classList.add('hidden');
+    $('panelCard').classList.remove('hidden');
+    msg($('panelMsg'),'','');
+  }catch(e){
+    localStorage.removeItem(TOKEN_KEY);
+    msg($('loginMsg'),'No se pudo entrar: ' + e.message + '. Revisa el token y que tenga permiso Contents: read and write.','error');
+  }
+};
+
+$('recargarBtn').onclick = async () => {
+  try{ leerTabla(); await cargar(); msg($('panelMsg'),'Inventario recargado.','ok'); }
+  catch(e){ msg($('panelMsg'),'Error: ' + e.message,'error'); }
+};
+
+$('salirBtn').onclick = () => {
+  localStorage.removeItem(TOKEN_KEY);
+  $('token').value = '';
+  $('panelCard').classList.add('hidden');
+  $('loginCard').classList.remove('hidden');
+  msg($('loginMsg'),'','');
+};
+
+$('agregarBtn').onclick = () => {
+  leerTabla();
+  datos.push({ id:'nuevo'+Date.now().toString().slice(-4), nombre:'Nueva pieza', tipo:'aretes', cat:'oro', precio:100, stock:1, src:'', recortar:false });
+  pintar();
+};
+
+$('guardarBtn').onclick = async () => {
+  leerTabla();
+  const error = validar();
+  if(error){ msg($('panelMsg'),error,'error'); return; }
+  msg($('panelMsg'),'Guardando…');
+  const body = {
+    message: 'Actualizar inventario desde el panel de Solenna',
+    content: b64encode(JSON.stringify(datos, null, 2)),
+    sha: sha,
+    branch: BRANCH
+  };
+  try{
+    const r = await fetch(`https://api.github.com/repos/${repo()}/contents/${FILE}`, {
+      method:'PUT', headers: headers(), body: JSON.stringify(body)
+    });
+    if(!r.ok){
+      const j = await r.json().catch(()=>({}));
+      throw new Error(j.message || ('HTTP ' + r.status));
+    }
+    const j = await r.json();
+    sha = j.content.sha;
+    msg($('panelMsg'),'✅ Guardado. La web se actualiza en ~1 minuto.','ok');
+  }catch(e){
+    msg($('panelMsg'),'No se pudo guardar: ' + e.message,'error');
+  }
+};
+
+// Si ya hay token guardado, lo precargamos (pero no entramos automáticamente)
+$('token').value = localStorage.getItem(TOKEN_KEY) || '';
+$('repo').value = localStorage.getItem(REPO_KEY) || $('repo').value;
+</script>
+</body>
+</html>

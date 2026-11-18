@@ -74,6 +74,9 @@
   .pieza img{width:100%;height:56px;object-fit:contain}
   .pieza b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pieza span{font-size:10px;color:var(--gold)}
+  .pieza em{display:block;font-size:9px;font-style:normal;color:#7f9b6d;margin-top:2px}
+  .pieza.agotada{opacity:.5}
+  .pieza.agotada em{color:#a33}
   .row{display:flex;align-items:center;gap:10px;margin-top:14px}
   .row label{font-size:13px;color:var(--muted);min-width:78px}
   input[type=range]{flex:1;accent-color:var(--gold)}
@@ -199,7 +202,7 @@
   </aside>
 </main>
 
-<footer>Hecho con cariño para Solenna · Brillo y sabor 💛</footer>
+<footer>Hecho con cariño para Solenna · Brillo y sabor 💛 · <a href="admin.html" style="color:#9a8f7e">Admin</a></footer>
 
 <script type="module">
 import { FaceLandmarker, HandLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
@@ -300,8 +303,8 @@ function jewelSVG(tipo, cat){
   return svgURI(`<svg ${ns} width="400" height="320" viewBox="0 0 400 320">${defs}${body}</svg>`);
 }
 
-const CATALOGO = [
-  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, src:'assets/collar-vaquero.png', recortar:true },
+let CATALOGO = [
+  { id:'c5', nombre:'Collar Vaquero',  tipo:'collar', cat:'oro',     precio:850, stock:3, src:'assets/collar-vaquero.png', recortar:true },
   { id:'a1', nombre:'Aretes Sol',      tipo:'aretes', cat:'oro',     precio:380 },
   { id:'a2', nombre:'Aretes Luna',     tipo:'aretes', cat:'plata',   precio:290 },
   { id:'a3', nombre:'Aretes Perla',    tipo:'aretes', cat:'perlas',  precio:420 },
@@ -322,6 +325,22 @@ const CATALOGO = [
 
 state.pieza = CATALOGO[0];
 state.tipo = state.pieza.tipo;
+
+function armarCatalogo(datos){
+  if (!Array.isArray(datos) || !datos.length) return;
+  CATALOGO = datos.map(p => ({ ...p, img: loadImg(p.src || jewelSVG(p.tipo, p.cat)) }));
+  state.pieza = CATALOGO[0];
+  state.tipo = state.pieza.tipo;
+  pintarGrid();
+  syncControls();
+  pintarContador(leerContador());
+}
+async function cargarCatalogo(){
+  try {
+    const r = await fetch('catalogo.json', { cache:'no-store' });
+    if (r.ok) armarCatalogo(await r.json());
+  } catch(e){ /* sin conexión: se usa el catálogo interno */ }
+}
 
 /* ---------- Contador social (real, por día / sesión / pieza) ---------- */
 function hoy(){
@@ -595,17 +614,26 @@ function syncControls(){
   document.getElementById('scale').value = o.scale;
   document.getElementById('dedoRow').style.display = state.tipo==='anillo' ? 'flex' : 'none';
   document.querySelectorAll('#tipoTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.tipo===state.tipo));
+  const agotado = state.pieza && state.pieza.stock !== undefined && state.pieza.stock <= 0;
+  const wa = document.getElementById('waBtn');
+  wa.disabled = !!agotado;
+  wa.textContent = agotado ? '💬 Pieza agotada' : '💬 Pedir esta joya por WhatsApp';
 }
 function pintarGrid(){
   let items = CATALOGO.filter(p => state.filtro==='todos' || p.cat===state.filtro);
   if (state.orden==='asc') items = [...items].sort((a,b)=>a.precio-b.precio);
   if (state.orden==='desc') items = [...items].sort((a,b)=>b.precio-a.precio);
   if (state.orden==='nombre') items = [...items].sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
-  document.getElementById('grid').innerHTML = items.map(p => `
-    <button class="pieza ${p.id===state.pieza.id?'active':''}" data-id="${p.id}">
+  document.getElementById('grid').innerHTML = items.map(p => {
+    const agotado = p.stock !== undefined && p.stock <= 0;
+    const label = agotado ? 'Agotado' : (p.stock !== undefined ? `Quedan ${p.stock}` : '');
+    return `
+    <button class="pieza ${p.id===state.pieza.id?'active':''} ${agotado?'agotada':''}" data-id="${p.id}">
       <img src="${p.img.src}" alt="${p.nombre}">
       <b>${p.nombre}</b><span>$${p.precio}</span>
-    </button>`).join('');
+      ${label ? `<em>${label}</em>` : ''}
+    </button>`;
+  }).join('');
   document.querySelectorAll('.pieza').forEach(b => b.onclick = () => seleccionarPieza(b.dataset.id));
 }
 function seleccionarPieza(id){
@@ -730,6 +758,7 @@ document.getElementById('startBtn').onclick = startCamera;
 pintarContador(leerContador());
 pintarGrid();
 syncControls();
+cargarCatalogo();
 initModels().catch(e => {
   setStatus('No se pudieron cargar los modelos. Revisa tu conexión e inténtalo de nuevo.', true);
   console.error(e);

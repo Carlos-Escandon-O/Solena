@@ -51,6 +51,30 @@ git add . && git commit -m "describe el cambio" && git push
 
 GitHub Pages tarda ~1 minuto en reflejarlo.
 
+## 🔐 Panel de administración
+
+**https://carlos-escandon-o.github.io/Solenna/admin.html**
+
+El inventario vive en `catalogo.json`. El panel permite cambiar **nombre, tipo, categoría, precio, stock e imagen** de cada pieza, agregar o borrar piezas, y guardar directamente en el repo.
+
+### Configuración (una sola vez)
+
+1. En GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
+2. **Generate new token**: nombre `Solena Admin`, expiración la que prefieras.
+3. Repository access → **Only select repositories** → `Solenna`.
+4. Permissions → **Contents: Read and write**.
+5. Copia el token (solo se muestra una vez).
+6. Abre `/admin.html`, pega el token y tu repo (`Carlos-Escandon-O/Solenna`), y entra.
+
+El token queda guardado **solo en ese navegador**. No se envía a ningún servidor propio: el panel habla directamente con la API de GitHub. Cualquier otra persona puede ver la página del panel, pero **sin tu token no puede guardar nada**.
+
+> Si prefieres no usar tokens: edita `catalogo.json` directamente en GitHub y haz commit. La web lee ese archivo al cargar.
+
+### Stock
+
+- `stock: 0` → la pieza aparece como **Agotado** y el botón de WhatsApp se desactiva.
+- Si el archivo JSON no carga (sin conexión), la web usa un catálogo interno de respaldo.
+
 ## 📸 Poner tus piezas reales
 
 1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Yo puedo quitar el fondo si me la mandas.
