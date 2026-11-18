@@ -27,7 +27,16 @@ from pathlib import Path
 from PIL import Image
 import numpy as np
 import cv2
-from rembg import remove
+from rembg import remove, new_session
+
+# Modelo BiRefNet: mucho mejor que u2net para joyas delgadas y fondos con textura.
+# La primera vez descarga ~900 MB; después se guarda en caché.
+MODELO = "birefnet-general"
+SESION = new_session(MODELO)
+
+
+def quitar_fondo(img):
+    return remove(img, session=SESION)
 
 CRUDAS = Path("fotos-crudas")
 SALIDA = Path("assets")
@@ -48,11 +57,14 @@ PREFIJOS = {
 }
 
 
+LETRA_A_TIPO = {"a": "aretes", "c": "collar", "r": "anillo", "p": "pulsera"}
+
+
 def tipo_de(nombre):
     n = nombre.lower()
-    for pref, tipo in PREFIJOS.items():
+    for pref, letra in PREFIJOS.items():
         if n.startswith(pref):
-            return tipo
+            return LETRA_A_TIPO[letra]
     return "collar"
 
 
@@ -137,7 +149,7 @@ def main():
         print(f"\n→ {archivo.name}  (tipo: {tipo})")
         with Image.open(archivo) as img:
             img = img.convert("RGBA")
-            sin_fondo = remove(img)
+            sin_fondo = quitar_fondo(img)
 
         islas = separar_islas(sin_fondo)
         if not islas:

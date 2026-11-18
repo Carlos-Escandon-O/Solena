@@ -91,6 +91,14 @@ python3 preparar_fotos.py
 - Guarda en `assets/` y escribe `catalogo-sugerido.json` con las entradas para el panel Admin.
 - Para fotos con **varias pulseras juntas**, funciona siempre que no se toquen.
 - Si la joya está sostenida por una mano o se toca con otra, recorta esa foto antes.
+- Usa el modelo **BiRefNet** (`birefnet-general`), mucho mejor que `u2net` para joyas delgadas. La primera corrida descarga ~900 MB y luego usa caché.
+
+### Alternativas gratis si el recorte sigue saliendo mal
+
+- **BRIA RMBG 2.0** (demo gratis): https://huggingface.co/spaces/briaai/BRIA-RMBG-2.0 — modelo BiRefNet especializado en quitar fondo.
+- **Google Gemini**, **Adobe Firefly**, **Leonardo AI**, **Krea** o **Magic Hour** tienen capas gratis de edición por chat parecida a ChatGPT.
+
+Si ya tienes la joya con fondo transparente desde otra herramienta, puedes saltarte el paso de `rembg`: pon el PNG directamente en `assets/` y usa el panel Admin para darle nombre, precio y stock.
 
 ## 📸 Poner tus piezas reales
 
