@@ -7,137 +7,90 @@
 <title>Solena · Probador virtual</title>
 <style>
   :root{
-    --bg:#f7f3ea;
-    --ink:#241f19;
-    --muted:#7a7062;
-    --gold:#b8892b;
-    --gold-soft:#e7cd8f;
-    --line:#e2d8c5;
-    --card:#fffdf8;
+    --bg:#f7f3ea; --ink:#241f19; --muted:#7a7062; --gold:#b8892b;
+    --gold-soft:#e7cd8f; --line:#e2d8c5; --card:#fffdf8;
   }
   *{box-sizing:border-box}
   body{
     margin:0;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:var(--ink);
-    background:
-      radial-gradient(1200px 600px at 80% -10%, #fff8e8 0%, transparent 60%),
-      var(--bg);
+    background:radial-gradient(1200px 600px at 80% -10%, #fff8e8 0%, transparent 60%), var(--bg);
     min-height:100vh;
   }
-  header{
-    padding:22px 20px 10px;
-    text-align:center;
-  }
-  .brand{
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:30px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    margin:0;
-    color:#2a2318;
-  }
+  header{padding:22px 20px 10px;text-align:center}
+  .brand{font-family:Georgia,"Times New Roman",serif;font-size:30px;letter-spacing:.16em;text-transform:uppercase;margin:0;color:#2a2318}
   .brand span{color:var(--gold)}
-  .tagline{
-    margin:6px 0 0;
-    font-size:12px;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:var(--muted);
-  }
+  .tagline{margin:6px 0 0;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
   main{
-    max-width:1040px;
-    margin:0 auto;
-    padding:18px 16px 60px;
-    display:grid;
-    grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
-    gap:22px;
-    align-items:start;
+    max-width:1080px;margin:0 auto;padding:18px 16px 60px;
+    display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+    gap:22px;align-items:start;
   }
-  @media (max-width:820px){
-    main{grid-template-columns:1fr}
-  }
+  @media (max-width:820px){main{grid-template-columns:1fr}}
   .stage{
-    position:relative;
-    background:#1c1915;
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 18px 50px rgba(60,45,20,.18);
-    min-height:420px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    position:relative;background:#1c1915;border-radius:22px;overflow:hidden;
+    box-shadow:0 18px 50px rgba(60,45,20,.18);min-height:420px;
+    display:flex;align-items:center;justify-content:center;
   }
-  .stage video{
-    position:absolute;width:2px;height:2px;opacity:0;pointer-events:none;left:-9999px;
-  }
-  #canvas{
-    display:block;
-    width:100%;
-    height:auto;
-    transform:scaleX(-1);
+  .stage video{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none;left:-9999px}
+  #canvas{display:block;width:100%;height:auto;transform:scaleX(-1)}
+  .counter{
+    position:absolute;top:14px;left:14px;z-index:2;
+    background:rgba(42,35,24,.84);color:#fff6e2;padding:9px 14px;border-radius:999px;
+    font-size:12px;backdrop-filter:blur(6px);box-shadow:0 4px 14px rgba(0,0,0,.25);
   }
   .placeholder{
-    position:absolute;inset:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:14px;text-align:center;padding:30px;
-    background:linear-gradient(155deg,#2a241c,#15120e 70%);
-    color:#f4ead6;
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:14px;text-align:center;padding:30px;
+    background:linear-gradient(155deg,#2a241c,#15120e 70%);color:#f4ead6;
   }
-  .placeholder .ring-icon{
-    font-size:54px;filter:drop-shadow(0 4px 14px rgba(232,190,90,.45));
-  }
-  .placeholder h2{
-    margin:0;font-family:Georgia,serif;font-size:26px;letter-spacing:.04em;
-  }
+  .placeholder .ring-icon{font-size:54px;filter:drop-shadow(0 4px 14px rgba(232,190,90,.45))}
+  .placeholder h2{margin:0;font-family:Georgia,serif;font-size:26px;letter-spacing:.04em}
   .placeholder p{margin:0;max-width:330px;font-size:14px;line-height:1.6;color:#c9bda6}
   .placeholder.hidden{display:none}
   .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:20px;
+    background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;
     box-shadow:0 8px 26px rgba(60,45,20,.07);
   }
   .card + .card{margin-top:14px}
-  .card h3{
-    margin:0 0 14px;
-    font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
-  }
+  .card h3{margin:0 0 14px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
   .tabs{display:flex;gap:8px}
   .tab{
     flex:1;padding:11px 6px;border:1px solid var(--line);border-radius:12px;
-    background:#fff;color:var(--ink);font-size:14px;cursor:pointer;
-    transition:.18s;
+    background:#fff;color:var(--ink);font-size:14px;cursor:pointer;transition:.18s;
   }
   .tab:hover{border-color:var(--gold-soft)}
   .tab.active{background:#2a2318;color:#fff8e6;border-color:#2a2318}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;cursor:pointer;transition:.15s}
+  .chip.active{background:#2a2318;color:#fff;border-color:#2a2318}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;max-height:310px;overflow-y:auto;padding-right:4px}
+  .pieza{border:1px solid var(--line);border-radius:12px;background:#fff;padding:8px 4px;cursor:pointer;text-align:center;transition:.15s}
+  .pieza:hover{border-color:var(--gold)}
+  .pieza.active{border-color:var(--gold);background:#fffaf0;box-shadow:0 0 0 2px rgba(184,137,43,.2)}
+  .pieza img{width:100%;height:56px;object-fit:contain}
+  .pieza b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pieza span{font-size:10px;color:var(--gold)}
   .row{display:flex;align-items:center;gap:10px;margin-top:14px}
   .row label{font-size:13px;color:var(--muted);min-width:78px}
   input[type=range]{flex:1;accent-color:var(--gold)}
-  select, input[type=file]{
+  select,input[type=file]{
     width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;
     background:#fff;color:var(--ink);font-size:13px;
   }
   .btn{
     display:block;width:100%;padding:13px;border:0;border-radius:12px;
-    background:linear-gradient(135deg,#c99a37,#a8761f);
-    color:#fff;font-size:15px;font-weight:600;cursor:pointer;
-    box-shadow:0 6px 16px rgba(168,118,31,.28);
-    transition:.18s;
+    background:linear-gradient(135deg,#c99a37,#a8761f);color:#fff;
+    font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(168,118,31,.28);transition:.18s;
   }
   .btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
-  .btn.secondary{
-    background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:500;
-  }
-  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:500}
+  .btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 6px 16px rgba(18,140,126,.25)}
   .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
   .status{font-size:12px;color:var(--muted);margin-top:12px;min-height:16px;line-height:1.5}
   .status.error{color:#a33}
-  .hint{
-    font-size:11px;color:#9a8f7e;line-height:1.6;margin-top:16px;
-    padding-top:14px;border-top:1px dashed var(--line);
-  }
+  .hint{font-size:11px;color:#9a8f7e;line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
   .result{display:none;margin-top:14px;text-align:center}
   .result img{width:100%;border-radius:14px;border:1px solid var(--line)}
   .result.show{display:block}
@@ -155,10 +108,11 @@
   <section class="stage">
     <video id="video" playsinline autoplay muted></video>
     <canvas id="canvas" width="900" height="1200"></canvas>
+    <div class="counter" id="counter">💫 Cargando…</div>
     <div class="placeholder" id="placeholder">
-      <div class="ring-icon">💍</div>
-      <h2>Pruébate en Solena</h2>
-      <p>Activa tu cámara para ver cómo te quedan aretes, collares y anillos en tiempo real.</p>
+      <div class="ring-icon" id="phIcon">💍</div>
+      <h2 id="phTitle">Pruébate en Solena</h2>
+      <p id="phText">Activa tu cámara para ver cómo te quedan aretes, collares y anillos en tiempo real.</p>
       <button class="btn" id="startBtn" style="max-width:240px">Activar cámara</button>
       <div class="status" id="status"></div>
     </div>
@@ -166,64 +120,83 @@
 
   <aside>
     <div class="card">
-      <h3>¿Qué quieres probar?</h3>
-      <div class="tabs">
+      <h3>¿Cómo quieres probar?</h3>
+      <div class="tabs" id="modoTabs">
+        <button class="tab active" data-modo="camara">📷 Cámara en vivo</button>
+        <button class="tab" data-modo="foto">🖼️ Subir una foto</button>
+      </div>
+      <div id="photoRow" style="display:none;margin-top:12px">
+        <input type="file" id="photoInput" accept="image/*">
+        <p class="hint">Sube un selfie guardado. Ideal si no quieres abrir la cámara en el bazar.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>1. Elige tu pieza</h3>
+      <div class="chips" id="filtros">
+        <button class="chip active" data-filtro="todos">Todas</button>
+        <button class="chip" data-filtro="oro">Oro</button>
+        <button class="chip" data-filtro="plata">Plata</button>
+        <button class="chip" data-filtro="perlas">Perlas</button>
+        <button class="chip" data-filtro="piedras">Piedras</button>
+      </div>
+      <div class="row">
+        <label for="orden">Ordenar</label>
+        <select id="orden">
+          <option value="relevancia">Destacadas</option>
+          <option value="asc">Precio: menor a mayor</option>
+          <option value="desc">Precio: mayor a menor</option>
+          <option value="nombre">Nombre A–Z</option>
+        </select>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="card">
+      <h3>2. Ajusta la pieza</h3>
+      <div class="tabs" id="tipoTabs">
         <button class="tab active" data-tipo="aretes">Aretes</button>
         <button class="tab" data-tipo="collar">Collar</button>
         <button class="tab" data-tipo="anillo">Anillo</button>
       </div>
-
       <div class="row" id="dedoRow" style="display:none">
         <label for="dedo">Dedo</label>
         <select id="dedo">
-          <option value="0">Índice</option>
-          <option value="1">Medio</option>
-          <option value="2">Anular</option>
-          <option value="3">Meñique</option>
+          <option value="0">Índice</option><option value="1">Medio</option>
+          <option value="2">Anular</option><option value="3">Meñique</option>
           <option value="4">Pulgar</option>
         </select>
       </div>
-
-      <div class="row">
-        <label for="x">Mover ↔</label>
-        <input type="range" id="x" min="-0.25" max="0.25" step="0.005" value="0">
-      </div>
-      <div class="row">
-        <label for="y">Mover ↕</label>
-        <input type="range" id="y" min="-0.25" max="0.25" step="0.005" value="0">
-      </div>
-      <div class="row">
-        <label for="scale">Tamaño</label>
-        <input type="range" id="scale" min="0.3" max="2.5" step="0.05" value="1">
-      </div>
-
+      <div class="row"><label for="x">Mover ↔</label><input type="range" id="x" min="-0.25" max="0.25" step="0.005" value="0"></div>
+      <div class="row"><label for="y">Mover ↕</label><input type="range" id="y" min="-0.25" max="0.25" step="0.005" value="0"></div>
+      <div class="row"><label for="scale">Tamaño</label><input type="range" id="scale" min="0.3" max="2.5" step="0.05" value="1"></div>
       <div class="btn-row">
         <button class="btn secondary" id="resetBtn">Centrar</button>
         <button class="btn secondary" id="clearImgBtn">Quitar mi foto</button>
       </div>
+      <div class="row" style="display:block">
+        <input type="file" id="upload" accept="image/png,image/webp,image/jpeg">
+        <p class="hint">¿Tienes una joya propia? Sube su PNG con fondo transparente y reemplaza la pieza elegida.</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Tu pieza (opcional)</h3>
-      <input type="file" id="upload" accept="image/png,image/webp,image/jpeg">
-      <p class="hint">Sube una foto de tu joya con fondo transparente (PNG) y reemplaza la pieza de ejemplo. Se guarda solo en tu navegador.</p>
-    </div>
-
-    <div class="card">
-      <h3>Guardar resultado</h3>
+      <h3>3. Guarda o pide</h3>
       <div class="btn-row" style="margin-top:0">
         <button class="btn" id="shotBtn">Tomar foto</button>
         <button class="btn secondary" id="shareBtn" style="display:none">Compartir</button>
       </div>
+      <button class="btn whatsapp" id="waBtn" style="margin-top:10px">💬 Pedir esta joya por WhatsApp</button>
       <div class="result" id="result">
         <img id="resultImg" alt="Tu prueba">
         <a class="btn" id="download" download="solena-prueba.png" style="margin-top:10px">Descargar imagen</a>
       </div>
+      <div class="status" id="cardStatus"></div>
     </div>
   </aside>
 </main>
 
-<footer>Hecho con cariño para Solena · Función Solena + Sabor 💛</footer>
+<footer>Hecho con cariño para Solena · Brillo y sabor 💛</footer>
 
 <script type="module">
 import { FaceLandmarker, HandLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
@@ -232,147 +205,211 @@ const WASM = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
 const FACE_MODEL = "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task";
 const HAND_MODEL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
 
+/* ============================================================
+   CONFIGURACIÓN DEL NEGOCIO  ← edita aquí
+   ============================================================ */
+const WHATSAPP = "5210000000000";        // ← TU número con código de país, sin espacios ni +
+const BASE_PRUEBAS_REALES = 0;           // ← solo cambia si YA tienes pruebas reales registradas
+/* ============================================================ */
+
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const statusEl = document.getElementById('status');
+const cardStatus = document.getElementById('cardStatus');
 const placeholder = document.getElementById('placeholder');
+const counterEl = document.getElementById('counter');
 
-let faceLandmarker, handLandmarker;
-let ready = false;
-let lastTime = 0;
+let faceLandmarker, handLandmarker, faceImg, handImg, imgModelsPromise;
+let ready = false, looping = false, lastTime = 0;
 
 const state = {
   tipo: 'aretes',
+  pieza: null,
+  filtro: 'todos',
+  orden: 'relevancia',
   dedo: 0,
+  modo: 'camara',
+  cameraOn: false,
+  photo: null,
+  custom: { aretes: null, collar: null, anillo: null },
   offsets: {
     aretes: { x: 0, y: 0.012, scale: 1 },
     collar: { x: 0, y: 0.02, scale: 1 },
     anillo: { x: 0, y: 0, scale: 1 }
-  },
-  images: { aretes: null, collar: null, anillo: null }
+  }
 };
 
 const DEDOS = [
-  { pip: 6,  mcp: 5  },
-  { pip: 10, mcp: 9  },
-  { pip: 14, mcp: 13 },
-  { pip: 18, mcp: 17 },
-  { pip: 3,  mcp: 2  }
+  { pip: 6, mcp: 5 }, { pip: 10, mcp: 9 }, { pip: 14, mcp: 13 },
+  { pip: 18, mcp: 17 }, { pip: 3, mcp: 2 }
 ];
 
-/* ---------- Piezas de ejemplo (SVG) ---------- */
-const gold = `<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-  <stop offset="0" stop-color="#fff4c2"/><stop offset=".3" stop-color="#e9bd3c"/>
-  <stop offset=".65" stop-color="#a9700c"/><stop offset="1" stop-color="#ffdf7a"/></linearGradient>`;
-const gem = `<radialGradient id="r" cx=".35" cy=".3">
-  <stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#d6f0ff"/>
-  <stop offset="1" stop-color="#59a8d4"/></radialGradient>`;
-
+/* ---------- Generación de piezas de ejemplo ---------- */
+const PALETAS = {
+  oro:     { m1:'#fff4c2', m2:'#e9bd3c', m3:'#a9700c', g1:'#ffffff', g2:'#d6f0ff', g3:'#59a8d4' },
+  plata:   { m1:'#ffffff', m2:'#d7dde3', m3:'#8f9aa5', g1:'#ffffff', g2:'#e8f4ff', g3:'#9fb8c9' },
+  perlas:  { m1:'#fff8e1', m2:'#e8d3a0', m3:'#ab8c52', g1:'#ffffff', g2:'#fff6ee', g3:'#e6d6c6' },
+  piedras: { m1:'#f6e3b0', m2:'#c9a24a', m3:'#8a6a1e', g1:'#f3d9ff', g2:'#b57bd9', g3:'#5d2a8c' }
+};
 const svgURI = s => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
-
-const SVG_ARETE = svgURI(`<svg xmlns="http://www.w3.org/2000/svg" width="160" height="340" viewBox="0 0 160 340">
-<defs>${gold}${gem}</defs>
-<path d="M80 16 a26 26 0 1 0 0 52" fill="none" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
-<line x1="80" y1="66" x2="80" y2="156" stroke="url(#g)" stroke-width="6"/>
-<circle cx="80" cy="222" r="56" fill="url(#g)"/>
-<circle cx="80" cy="222" r="43" fill="url(#r)"/>
-<path d="M37 222 L80 179 L123 222 L80 265 Z" fill="#fff" opacity=".18"/>
-<circle cx="63" cy="204" r="8" fill="#fff" opacity=".7"/></svg>`);
-
-const SVG_ANILLO = svgURI(`<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
-<defs>${gold}${gem}</defs>
-<ellipse cx="160" cy="110" rx="112" ry="46" fill="none" stroke="url(#g)" stroke-width="18"/>
-<path d="M118 72 L160 26 L202 72 Z" fill="url(#g)"/>
-<circle cx="160" cy="64" r="34" fill="url(#r)"/>
-<path d="M126 64 L160 30 L194 64 L160 98 Z" fill="#fff" opacity=".16"/>
-<circle cx="148" cy="52" r="7" fill="#fff" opacity=".75"/></svg>`);
-
-const SVG_DIJE = svgURI(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="170" viewBox="0 0 120 170">
-<defs>${gold}${gem}</defs>
-<circle cx="60" cy="30" r="11" fill="none" stroke="url(#g)" stroke-width="6"/>
-<line x1="60" y1="41" x2="60" y2="66" stroke="url(#g)" stroke-width="6"/>
-<path d="M60 60 L94 98 L60 154 L26 98 Z" fill="url(#g)"/>
-<path d="M60 72 L83 100 L60 140 L37 100 Z" fill="url(#r)"/>
-<path d="M60 72 L83 100 L60 100 Z" fill="#fff" opacity=".2"/></svg>`);
-
 function loadImg(src){ const i = new Image(); i.src = src; return i; }
-const IMG = { aretes: loadImg(SVG_ARETE), anillo: loadImg(SVG_ANILLO), collar: loadImg(SVG_DIJE) };
 
-/* ---------- Modelos ---------- */
-async function buildLandmarker(Klass, model, extra){
-  const opts = {
-    baseOptions: { modelAssetPath: model, delegate: "GPU" },
-    runningMode: "VIDEO",
-    ...extra
-  };
-  try{
-    return await Klass.createFromOptions(await FilesetResolver.forVisionTasks(WASM), opts);
-  }catch(e){
-    opts.baseOptions.delegate = "CPU";
-    return await Klass.createFromOptions(await FilesetResolver.forVisionTasks(WASM), opts);
+function jewelSVG(tipo, cat){
+  const p = PALETAS[cat];
+  const defs = `<defs>
+    <linearGradient id="m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p.m1}"/><stop offset=".45" stop-color="${p.m2}"/><stop offset="1" stop-color="${p.m3}"/></linearGradient>
+    <radialGradient id="g" cx=".35" cy=".3"><stop offset="0" stop-color="${p.g1}"/><stop offset=".4" stop-color="${p.g2}"/><stop offset="1" stop-color="${p.g3}"/></radialGradient>
+  </defs>`;
+  const ns = 'xmlns="http://www.w3.org/2000/svg"';
+  let body;
+  if (tipo === 'aretes'){
+    body = `<path d="M80 16 a26 26 0 1 0 0 52" fill="none" stroke="url(#m)" stroke-width="9" stroke-linecap="round"/>
+      <line x1="80" y1="66" x2="80" y2="160" stroke="url(#m)" stroke-width="6"/>
+      <circle cx="80" cy="225" r="56" fill="url(#m)"/>
+      <circle cx="80" cy="225" r="43" fill="url(#g)"/>
+      <circle cx="63" cy="207" r="8" fill="#fff" opacity=".65"/>`;
+    return svgURI(`<svg ${ns} width="160" height="340" viewBox="0 0 160 340">${defs}${body}</svg>`);
   }
+  if (tipo === 'anillo'){
+    body = `<ellipse cx="160" cy="112" rx="112" ry="46" fill="none" stroke="url(#m)" stroke-width="18"/>
+      <path d="M118 74 L160 28 L202 74 Z" fill="url(#m)"/>
+      <circle cx="160" cy="66" r="34" fill="url(#g)"/>
+      <circle cx="148" cy="54" r="7" fill="#fff" opacity=".7"/>`;
+    return svgURI(`<svg ${ns} width="320" height="180" viewBox="0 0 320 180">${defs}${body}</svg>`);
+  }
+  body = `<path d="M40 40 Q200 250 360 40" fill="none" stroke="url(#m)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="200" y1="145" x2="200" y2="172" stroke="url(#m)" stroke-width="7"/>
+    <path d="M200 165 L245 215 L200 285 L155 215 Z" fill="url(#m)"/>
+    <path d="M200 180 L232 217 L200 265 L168 217 Z" fill="url(#g)"/>
+    <circle cx="190" cy="205" r="7" fill="#fff" opacity=".55"/>`;
+  return svgURI(`<svg ${ns} width="400" height="320" viewBox="0 0 400 320">${defs}${body}</svg>`);
 }
 
+const CATALOGO = [
+  { id:'a1', nombre:'Aretes Sol',      tipo:'aretes', cat:'oro',     precio:380 },
+  { id:'a2', nombre:'Aretes Luna',     tipo:'aretes', cat:'plata',   precio:290 },
+  { id:'a3', nombre:'Aretes Perla',    tipo:'aretes', cat:'perlas',  precio:420 },
+  { id:'a4', nombre:'Aretes Amatista', tipo:'aretes', cat:'piedras', precio:460 },
+  { id:'a5', nombre:'Aretes Ámbar',    tipo:'aretes', cat:'oro',     precio:350 },
+  { id:'c1', nombre:'Collar Aurora',   tipo:'collar', cat:'oro',     precio:690 },
+  { id:'c2', nombre:'Collar Brisa',    tipo:'collar', cat:'plata',   precio:520 },
+  { id:'c3', nombre:'Collar Perla',    tipo:'collar', cat:'perlas',  precio:780 },
+  { id:'c4', nombre:'Collar Cuarzo',   tipo:'collar', cat:'piedras', precio:640 },
+  { id:'r1', nombre:'Anillo Aurora',   tipo:'anillo', cat:'oro',     precio:450 },
+  { id:'r2', nombre:'Anillo Luna',     tipo:'anillo', cat:'plata',   precio:340 },
+  { id:'r3', nombre:'Anillo Amatista', tipo:'anillo', cat:'piedras', precio:520 }
+].map(p => ({ ...p, img: loadImg(jewelSVG(p.tipo, p.cat)) }));
+
+state.pieza = CATALOGO[0];
+
+/* ---------- Contador social (real, por día y por sesión) ---------- */
+function hoy(){
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
+function leerContador(){
+  try {
+    const d = JSON.parse(localStorage.getItem('solena_contador') || 'null');
+    if (d && d.fecha === hoy()) return d;
+  } catch(e){}
+  return { fecha: hoy(), n: BASE_PRUEBAS_REALES };
+}
+function pintarContador(n){
+  counterEl.textContent = n <= 1
+    ? '💫 Sé la primera persona en probarlo hoy'
+    : `💫 ${n} personas se lo probaron hoy`;
+}
+function registrarPrueba(){
+  try {
+    if (sessionStorage.getItem('solena_conto')) return;
+    sessionStorage.setItem('solena_conto', '1');
+  } catch(e){}
+  const d = leerContador();
+  d.n += 1;
+  try { localStorage.setItem('solena_contador', JSON.stringify(d)); } catch(e){}
+  pintarContador(d.n);
+}
+
+/* ---------- Modelos ---------- */
+async function buildLandmarker(Klass, model, extra, runningMode = 'VIDEO'){
+  const opts = {
+    baseOptions: { modelAssetPath: model, delegate: 'GPU' },
+    runningMode, ...extra
+  };
+  const fileset = await FilesetResolver.forVisionTasks(WASM);
+  try { return await Klass.createFromOptions(fileset, opts); }
+  catch(e){
+    opts.baseOptions.delegate = 'CPU';
+    return await Klass.createFromOptions(fileset, opts);
+  }
+}
 async function initModels(){
-  setStatus("Cargando modelos… (unos segundos)");
+  setStatus('Cargando modelos… (unos segundos)');
   [faceLandmarker, handLandmarker] = await Promise.all([
-    buildLandmarker(FaceLandmarker, FACE_MODEL, { numFaces: 1 }),
-    buildLandmarker(HandLandmarker, HAND_MODEL, { numHands: 2 })
+    buildLandmarker(FaceLandmarker, FACE_MODEL, { numFaces:1 }),
+    buildLandmarker(HandLandmarker, HAND_MODEL, { numHands:2 })
   ]);
   ready = true;
   document.getElementById('startBtn').disabled = false;
-  setStatus("Listo. Activa tu cámara cuando quieras.");
+  setStatus('Listo. Activa tu cámara cuando quieras.');
+}
+function ensureImageModels(){
+  if (!imgModelsPromise){
+    imgModelsPromise = Promise.all([
+      buildLandmarker(FaceLandmarker, FACE_MODEL, { numFaces:1 }, 'IMAGE'),
+      buildLandmarker(HandLandmarker, HAND_MODEL, { numHands:2 }, 'IMAGE')
+    ]).then(([f,h]) => { faceImg = f; handImg = h; });
+  }
+  return imgModelsPromise;
 }
 
 /* ---------- Cámara ---------- */
 async function startCamera(){
-  if(!ready){
-    setStatus("Aún cargando los modelos, espera un momento…", true);
-    return;
-  }
-  setStatus("Pidiendo permiso de cámara…");
-  try{
+  if (!ready){ setStatus('Aún cargando los modelos, espera un momento…', true); return; }
+  setStatus('Pidiendo permiso de cámara…');
+  try {
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode:"user", width:{ideal:1280}, height:{ideal:960} },
-      audio: false
+      video: { facingMode:'user', width:{ideal:1280}, height:{ideal:960} }, audio:false
     });
     video.srcObject = stream;
     await video.play();
     canvas.width = video.videoWidth || 900;
     canvas.height = video.videoHeight || 1200;
+    state.cameraOn = true;
+    document.getElementById('startBtn').style.display = 'none';
     placeholder.classList.add('hidden');
-    setStatus("");
-    loop();
-  }catch(err){
+    setStatus('');
+    registrarPrueba();
+    if (!looping) loop();
+  } catch(err){
     const msgs = {
-      NotAllowedError: "Permiso de cámara denegado. Actívalo en los ajustes del navegador y vuelve a intentarlo.",
-      NotFoundError: "No se encontró ninguna cámara en este dispositivo.",
-      NotReadableError: "La cámara está siendo usada por otra aplicación. Ciérrala e inténtalo de nuevo."
+      NotAllowedError: 'Permiso de cámara denegado. Actívalo en los ajustes del navegador e inténtalo de nuevo.',
+      NotFoundError: 'No se encontró ninguna cámara en este dispositivo.',
+      NotReadableError: 'La cámara está siendo usada por otra aplicación. Ciérrala e inténtalo de nuevo.'
     };
-    setStatus(msgs[err.name] || "No se pudo abrir la cámara. Asegúrate de usar HTTPS o localhost.", true);
+    setStatus(msgs[err.name] || 'No se pudo abrir la cámara. Asegúrate de usar HTTPS o localhost.', true);
   }
 }
 
-/* ---------- Utilidades de dibujo ---------- */
-const P = (lm, i) => ({ x: lm[i].x * canvas.width, y: lm[i].y * canvas.height });
+/* ---------- Dibujo ---------- */
+const P = (lm,i) => ({ x: lm[i].x * canvas.width, y: lm[i].y * canvas.height });
 function avg(lm, ids){
   let x=0,y=0;
   ids.forEach(i=>{ x+=lm[i].x*canvas.width; y+=lm[i].y*canvas.height; });
   return { x:x/ids.length, y:y/ids.length };
 }
 function usable(img){ return img && img.complete && img.naturalWidth > 0; }
-
+function imagenActiva(){
+  return state.custom[state.tipo] ||
+    (state.pieza && state.pieza.tipo === state.tipo ? state.pieza.img : null);
+}
 function drawImg(img, cx, cy, w, h, rot=0, anchorY=0.5){
-  if(!usable(img)) return;
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(rot);
+  if (!usable(img)) return;
+  ctx.save(); ctx.translate(cx,cy); ctx.rotate(rot);
   ctx.drawImage(img, -w/2, -h*anchorY, w, h);
   ctx.restore();
 }
-
-/* ---------- Aretes ---------- */
 function drawEarrings(lm){
   const earA = avg(lm,[234,127,93,132]);
   const earB = avg(lm,[454,356,323,361]);
@@ -380,84 +417,67 @@ function drawEarrings(lm){
   const eyeR = avg(lm,[362,263,386,374]);
   const roll = Math.atan2(eyeR.y-eyeL.y, eyeR.x-eyeL.x);
   const d = Math.hypot(earA.x-earB.x, earA.y-earB.y);
-  const o = state.offsets.aretes;
-  const img = state.images.aretes || IMG.aretes;
+  const o = state.offsets.aretes, img = imagenActiva();
   const w = d * 0.15 * o.scale;
-  const h = w * (img.naturalHeight/img.naturalWidth || 2.1);
-  [earA, earB].forEach(p=>{
-    drawImg(img, p.x + o.x*canvas.width, p.y + o.y*canvas.height, w, h, roll, 0.10);
-  });
+  const h = w * (img.naturalHeight / img.naturalWidth || 2.1);
+  [earA, earB].forEach(p => drawImg(img, p.x + o.x*canvas.width, p.y + o.y*canvas.height, w, h, roll, 0.10));
 }
-
-/* ---------- Collar (aproximado, ajustable) ---------- */
 function drawNecklace(lm){
-  const chin = P(lm,152);
-  const fore = P(lm,10);
-  const jawL = P(lm,234), jawR = P(lm,454);
+  const chin = P(lm,152), fore = P(lm,10), jawL = P(lm,234), jawR = P(lm,454);
   const fh = Math.hypot(fore.x-chin.x, fore.y-chin.y);
-  const o = state.offsets.collar;
+  const jaw = Math.hypot(jawR.x-jawL.x, jawR.y-jawL.y);
+  const o = state.offsets.collar, img = imagenActiva();
   const cx = (jawL.x+jawR.x)/2 + o.x*canvas.width;
-  const baseY = chin.y + fh*0.30 + o.y*canvas.height;
-  const halfW = Math.hypot(jawR.x-jawL.x, jawR.y-jawL.y) * 0.78 * o.scale;
-  const yEnd = baseY - halfW*0.55;
-  const yCtrl = baseY + halfW*0.95;
-  const lowY = (yEnd + 2*yCtrl + yEnd)/4;
-
-  const g = ctx.createLinearGradient(cx-halfW,0,cx+halfW,0);
-  g.addColorStop(0,'#9c6a0c'); g.addColorStop(.5,'#f0cf6a'); g.addColorStop(1,'#9c6a0c');
-  ctx.save();
-  ctx.strokeStyle = g;
-  ctx.lineWidth = Math.max(3, canvas.width*0.006);
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(cx-halfW, yEnd);
-  ctx.quadraticCurveTo(cx, yCtrl, cx+halfW, yEnd);
-  ctx.stroke();
-  ctx.restore();
-
-  const img = state.images.collar || IMG.collar;
-  const pw = halfW*0.40;
-  const ph = pw*(img.naturalHeight/img.naturalWidth || 1.4);
-  drawImg(img, cx, lowY, pw, ph, 0, 0.06);
+  const topY = chin.y + fh*0.10 + o.y*canvas.height;
+  const w = jaw * 1.75 * o.scale;
+  const h = w * (img.naturalHeight / img.naturalWidth || 0.8);
+  drawImg(img, cx, topY, w, h, 0, 0.10);
 }
-
-/* ---------- Anillos ---------- */
 function drawRings(landmarks){
-  if(!landmarks || !landmarks.length) return;
-  const hand = landmarks[0];
-  const f = DEDOS[state.dedo];
-  const pip = P(hand, f.pip);
-  const mcp = P(hand, f.mcp);
-  const dip = P(hand, Math.min(f.pip+1,20));
+  if (!landmarks || !landmarks.length) return;
+  const hand = landmarks[0], f = DEDOS[state.dedo];
+  const pip = P(hand,f.pip), mcp = P(hand,f.mcp), dip = P(hand,Math.min(f.pip+1,20));
   const ang = Math.atan2(dip.y-mcp.y, dip.x-mcp.x);
   const fingerLen = Math.hypot(pip.x-mcp.x, pip.y-mcp.y);
-  const o = state.offsets.anillo;
-  const img = state.images.anillo || IMG.anillo;
-  const w = fingerLen*1.9*o.scale;
-  const h = w*(img.naturalHeight/img.naturalWidth || 0.56);
+  const o = state.offsets.anillo, img = imagenActiva();
+  const w = fingerLen * 1.9 * o.scale;
+  const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
   drawImg(img, pip.x + o.x*canvas.width, pip.y + o.y*canvas.height, w, h, ang + Math.PI/2, 0.5);
 }
+function pintarSobre(faces, hands){
+  if (state.tipo === 'anillo') drawRings(hands);
+  else if (faces && faces.length){
+    if (state.tipo === 'aretes') drawEarrings(faces[0]);
+    else drawNecklace(faces[0]);
+  }
+}
 
-/* ---------- Loop ---------- */
+/* ---------- Loop cámara ---------- */
 function loop(){
-  if(video.readyState >= 2){
+  if (state.modo !== 'camara' || !state.cameraOn){ looping = false; return; }
+  if (video.readyState >= 2){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.drawImage(video,0,0,canvas.width,canvas.height);
-
     const now = Math.max(performance.now(), lastTime+1);
     lastTime = now;
-
-    if(state.tipo === 'anillo'){
-      drawRings(handLandmarker.detectForVideo(video, now).landmarks);
-    }else{
-      const faces = faceLandmarker.detectForVideo(video, now).faceLandmarks;
-      if(faces && faces.length){
-        if(state.tipo === 'aretes') drawEarrings(faces[0]);
-        else drawNecklace(faces[0]);
-      }
-    }
+    if (state.tipo === 'anillo') pintarSobre(null, handLandmarker.detectForVideo(video,now).landmarks);
+    else pintarSobre(faceLandmarker.detectForVideo(video,now).faceLandmarks, null);
   }
   requestAnimationFrame(loop);
+}
+
+/* ---------- Modo foto ---------- */
+function renderPhoto(){
+  if (!state.photo || !faceImg || !handImg) return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(state.photo,0,0,canvas.width,canvas.height);
+  if (state.tipo === 'anillo') pintarSobre(null, handImg.detect(state.photo).landmarks);
+  else pintarSobre(faceImg.detect(state.photo).faceLandmarks, null);
+  document.getElementById('result').classList.remove('show');
+}
+function refrescar(){
+  if (state.modo === 'foto' && state.photo) renderPhoto();
+  document.getElementById('result').classList.remove('show');
 }
 
 /* ---------- UI ---------- */
@@ -465,86 +485,154 @@ function setStatus(msg, isError=false){
   statusEl.textContent = msg || '';
   statusEl.classList.toggle('error', isError);
 }
+function setCardStatus(msg, isError=false){
+  cardStatus.textContent = msg || '';
+  cardStatus.classList.toggle('error', isError);
+}
 function syncControls(){
   const o = state.offsets[state.tipo];
   document.getElementById('x').value = o.x;
   document.getElementById('y').value = o.y;
   document.getElementById('scale').value = o.scale;
   document.getElementById('dedoRow').style.display = state.tipo==='anillo' ? 'flex' : 'none';
+  document.querySelectorAll('#tipoTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.tipo===state.tipo));
+}
+function pintarGrid(){
+  let items = CATALOGO.filter(p => state.filtro==='todos' || p.cat===state.filtro);
+  if (state.orden==='asc') items = [...items].sort((a,b)=>a.precio-b.precio);
+  if (state.orden==='desc') items = [...items].sort((a,b)=>b.precio-a.precio);
+  if (state.orden==='nombre') items = [...items].sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  document.getElementById('grid').innerHTML = items.map(p => `
+    <button class="pieza ${p.id===state.pieza.id?'active':''}" data-id="${p.id}">
+      <img src="${p.img.src}" alt="${p.nombre}">
+      <b>${p.nombre}</b><span>$${p.precio}</span>
+    </button>`).join('');
+  document.querySelectorAll('.pieza').forEach(b => b.onclick = () => seleccionarPieza(b.dataset.id));
+}
+function seleccionarPieza(id){
+  const p = CATALOGO.find(x => x.id===id);
+  if (!p) return;
+  state.pieza = p;
+  state.tipo = p.tipo;
+  syncControls(); pintarGrid(); refrescar(); registrarPrueba();
+}
+function setModo(modo){
+  state.modo = modo;
+  document.querySelectorAll('#modoTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.modo===modo));
+  document.getElementById('photoRow').style.display = modo==='foto' ? 'block' : 'none';
+  canvas.style.transform = modo==='camara' ? 'scaleX(-1)' : 'none';
+  document.getElementById('result').classList.remove('show');
+  if (modo === 'foto'){
+    document.getElementById('phIcon').textContent = '🖼️';
+    document.getElementById('phTitle').textContent = 'Sube tu foto';
+    document.getElementById('phText').textContent = 'Elige un selfie guardado y prueba las joyas sin abrir la cámara.';
+    document.getElementById('startBtn').style.display = 'none';
+    if (!state.photo) placeholder.classList.remove('hidden');
+  } else {
+    document.getElementById('phIcon').textContent = '💍';
+    document.getElementById('phTitle').textContent = 'Pruébate en Solena';
+    document.getElementById('phText').textContent = 'Activa tu cámara para ver cómo te quedan aretes, collares y anillos en tiempo real.';
+    document.getElementById('startBtn').style.display = state.cameraOn ? 'none' : 'block';
+    if (state.cameraOn){ placeholder.classList.add('hidden'); if (!looping) loop(); }
+  }
 }
 
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    state.tipo = btn.dataset.tipo;
-    document.getElementById('result').classList.remove('show');
-    syncControls();
-  });
+document.querySelectorAll('#modoTabs .tab').forEach(b => b.onclick = () => setModo(b.dataset.modo));
+document.querySelectorAll('#tipoTabs .tab').forEach(b => b.onclick = () => {
+  state.tipo = b.dataset.tipo;
+  const p = CATALOGO.find(x => x.tipo===state.tipo);
+  if (p) state.pieza = p;
+  syncControls(); pintarGrid(); refrescar();
 });
-
-['x','y','scale'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',e=>{
+document.querySelectorAll('#filtros .chip').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#filtros .chip').forEach(c => c.classList.remove('active'));
+  b.classList.add('active');
+  state.filtro = b.dataset.filtro;
+  pintarGrid();
+});
+document.getElementById('orden').onchange = e => { state.orden = e.target.value; pintarGrid(); };
+document.getElementById('dedo').onchange = e => { state.dedo = parseInt(e.target.value); refrescar(); };
+['x','y','scale'].forEach(id => {
+  document.getElementById(id).oninput = e => {
     state.offsets[state.tipo][id] = parseFloat(e.target.value);
-    document.getElementById('result').classList.remove('show');
-  });
-});
-
-document.getElementById('dedo').addEventListener('change',e=>{ state.dedo = parseInt(e.target.value); });
-
-document.getElementById('resetBtn').addEventListener('click',()=>{
-  const defaults = { aretes:{x:0,y:.012,scale:1}, collar:{x:0,y:.02,scale:1}, anillo:{x:0,y:0,scale:1} };
-  state.offsets[state.tipo] = {...defaults[state.tipo]};
-  syncControls();
-});
-
-document.getElementById('clearImgBtn').addEventListener('click',()=>{
-  state.images[state.tipo] = null;
-  setStatus("Pieza de ejemplo restaurada.");
-});
-
-document.getElementById('upload').addEventListener('change',e=>{
-  const file = e.target.files && e.target.files[0];
-  if(!file) return;
-  const img = new Image();
-  img.onload = ()=>{
-    state.images[state.tipo] = img;
-    setStatus("Tu pieza ya se está usando.");
+    refrescar();
   };
-  img.onerror = ()=>setStatus("No se pudo leer esa imagen.", true);
-  img.src = URL.createObjectURL(file);
 });
+document.getElementById('resetBtn').onclick = () => {
+  const defs = { aretes:{x:0,y:.012,scale:1}, collar:{x:0,y:.02,scale:1}, anillo:{x:0,y:0,scale:1} };
+  state.offsets[state.tipo] = {...defs[state.tipo]};
+  syncControls(); refrescar();
+};
+document.getElementById('clearImgBtn').onclick = () => { state.custom[state.tipo] = null; refrescar(); setStatus('Pieza del catálogo restaurada.'); };
+document.getElementById('upload').onchange = e => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const img = new Image();
+  img.onload = () => { state.custom[state.tipo] = img; refrescar(); setStatus('Tu pieza ya se está usando.'); };
+  img.src = URL.createObjectURL(f);
+};
+document.getElementById('photoInput').onchange = e => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const img = new Image();
+  img.onload = async () => {
+    setStatus('Preparando tu foto…');
+    try { await ensureImageModels(); }
+    catch(err){ setStatus('No se pudo cargar el detector de fotos.', true); return; }
+    const s = Math.min(1, 1400/Math.max(img.naturalWidth, img.naturalHeight));
+    canvas.width = Math.round(img.naturalWidth*s);
+    canvas.height = Math.round(img.naturalHeight*s);
+    state.photo = img;
+    placeholder.classList.add('hidden');
+    renderPhoto();
+    registrarPrueba();
+    setStatus('¡Listo! Ajusta la pieza y toma tu foto.');
+  };
+  img.src = URL.createObjectURL(f);
+};
 
+/* ---------- Resultado / WhatsApp ---------- */
 function snapshot(){
   const t = document.createElement('canvas');
   t.width = canvas.width; t.height = canvas.height;
   const c = t.getContext('2d');
-  c.translate(t.width,0); c.scale(-1,1);
+  if (state.modo === 'camara'){ c.translate(t.width,0); c.scale(-1,1); }
   c.drawImage(canvas,0,0);
   return t.toDataURL('image/png');
 }
-document.getElementById('shotBtn').addEventListener('click',()=>{
-  if(!placeholder.classList.contains('hidden')){
-    setStatus("Primero activa la cámara.", true); return;
-  }
+document.getElementById('shotBtn').onclick = () => {
+  const activo = state.modo==='camara' ? state.cameraOn : !!state.photo;
+  if (!activo){ setStatus('Primero activa la cámara o sube una foto.', true); return; }
   const url = snapshot();
   document.getElementById('resultImg').src = url;
   document.getElementById('download').href = url;
   document.getElementById('result').classList.add('show');
-  if(navigator.share) document.getElementById('shareBtn').style.display = 'block';
-});
-document.getElementById('shareBtn').addEventListener('click',async()=>{
-  try{
+  if (navigator.share) document.getElementById('shareBtn').style.display = 'block';
+};
+document.getElementById('shareBtn').onclick = async () => {
+  try {
     const blob = await (await fetch(snapshot())).blob();
     const file = new File([blob],'solena-prueba.png',{type:'image/png'});
-    if(navigator.canShare && navigator.canShare({files:[file]})) await navigator.share({files:[file], title:'Mi prueba en Solena'});
-  }catch(e){}
-});
+    if (navigator.canShare && navigator.canShare({files:[file]})) await navigator.share({files:[file], title:'Mi prueba en Solena'});
+  } catch(e){}
+};
+document.getElementById('waBtn').onclick = () => {
+  const p = state.pieza;
+  const texto = `Hola Solena 💛 Me interesa ${p.nombre} ($${p.precio}) que probé en tu probador virtual. ¿Sigue disponible?`;
+  if (WHATSAPP.startsWith('521000')){
+    if (navigator.clipboard) navigator.clipboard.writeText(texto).catch(()=>{});
+    setCardStatus('Falta tu número: edita WHATSAPP en el código (ver README). Copié el mensaje mientras tanto.', true);
+    return;
+  }
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+};
 
-document.getElementById('startBtn').addEventListener('click',startCamera);
+document.getElementById('startBtn').onclick = startCamera;
+pintarContador(leerContador().n);
+pintarGrid();
 syncControls();
-initModels().catch(e=>{
-  setStatus("No se pudieron cargar los modelos. Revisa tu conexión e inténtalo de nuevo.", true);
+initModels().catch(e => {
+  setStatus('No se pudieron cargar los modelos. Revisa tu conexión e inténtalo de nuevo.', true);
   console.error(e);
 });
 </script>

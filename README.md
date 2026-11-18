@@ -1,7 +1,7 @@
 # Solena · Probador virtual
 
-Prototipo de probador virtual de joyería funciona en el navegador, sin instalar nada.
-Usa la cámara + MediaPipe (gratis) para colocar aretes, collar y anillos sobre tu imagen en tiempo real.
+Probador virtual de joyería que funciona en el navegador, sin instalar nada.
+Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, collar y anillos en tiempo real.
 
 ## 🌐 Sitio en vivo
 
@@ -9,63 +9,56 @@ Usa la cámara + MediaPipe (gratis) para colocar aretes, collar y anillos sobre 
 
 Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 
+## ✨ Funciones
+
+- **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
+- **Catálogo de 12 piezas** de ejemplo con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
+- **Ajuste manual** de posición y tamaño, dedo para anillos, y opción de subir tu propia joya en PNG.
+- **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
+- **Foto descargable** y botón compartir.
+- **Contador social diario.**
+
+## ⚙️ Configuración ( importante )
+
+Al inicio del `<script>` en `index.html` hay dos valores que debes editar:
+
+```js
+const WHATSAPP = "5210000000000";  // ← reemplaza por tu número con código de país
+const BASE_PRUEBAS_REALES = 0;     // ← base del contador (solo si tienes pruebas reales previas)
+```
+
+1. **WHATSAPP:** tu número sin `+` ni espacios (ej. `525512345678`). Mientras siga con el valor de ejemplo, el botón copiará el mensaje pero no abrirá el chat.
+2. **BASE_PRUEBAS_REALES:** el contador es **real**: cuenta una prueba por sesión y se reinicia cada día. Si ya llevas un registro genuine de pruebas anteriores, pon ese número aquí. Te recomiendo dejarlo en `0`: un cartel que diga "47 personas" cuando el puesto está vacío rompe la confianza del cliente y puede considerarse publicidad engañosa. El contador crece solo con pruebas verdaderas.
+
 ## 📱 Cartel QR para el bazar
 
 ![Cartel QR de Solena](cartel-qr-solena.png)
 
-El archivo `cartel-qr-solena.png` está listo para imprimir. Si cambias la URL, regenera el cartel con:
+`cartel-qr-solena.png` está listo para imprimir. Si cambias la URL, regenera:
 
 ```bash
-python3 generar_qr.py
+python3 generar_qr.py   # requiere: pip install qrcode pillow
 ```
 
-Requiere `qrcode` y `pillow` (`pip install qrcode pillow`).
+## 🔄 Cómo actualizar el sitio
 
-## Cómo verlo
+Cada cambio en `index.html` se publica solo con:
 
-La cámara solo funciona en **HTTPS** o en **localhost**. Tienes dos opciones:
-
-### Opción rápida (en tu computadora, sin subir nada)
 ```bash
-cd solena-probador
-python3 -m http.server 8000
+git add . && git commit -m "describe el cambio" && git push
 ```
-Abre http://localhost:8000 en tu navegador.
 
-### Opción para compartir (gratis, con HTTPS)
-1. Crea una cuenta en **Netlify Drop** (https://app.netlify.com/drop) o **Vercel**.
-2. Arrastra la carpeta `solena-probador` completa.
-3. Te dan un link `https://...netlify.app` — ese link puedes ponerlo en un QR en tu puesto y compartirlo por WhatsApp/Instagram.
+GitHub Pages tarda ~1 minuto en reflejarlo.
 
-## Cómo usarlo
+## 📸 Poner tus piezas reales
 
-1. Activa la cámara.
-2. Elige **Aretes**, **Collar** o **Anillo**.
-3. Ajusta **Mover ↔ / Mover ↕ / Tamaño** hasta que la pieza quede bien.
-4. Para anillos elige el dedo.
-5. **Tomar foto** → descargar o compartir.
-
-## Poner TUS piezas reales
-
-Por defecto usa piezas de ejemplo dibujadas en SVG. Para usar tus joyas:
-
-1. Toma una foto de cada pieza con **fondo transparente** (PNG).
-   - Quita el fondo con https://remove.bg o https://www.adobe.com/express/feature/image/remove-background
-   - La joya debe estar centrada y de frente.
-2. En la web, selecciona el tipo (Aretes/Collar/Anillo) y sube el PNG con "Tu pieza (opcional)".
-3. Ajusta posición y tamaño con los controles.
-
-> Las imágenes que subes se guardan solo en el navegador de quien las sube; no se envían a ningún servidor.
+1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Yo puedo quitar el fondo si me la mandas.
+2. Reemplaza el array `CATALOGO` en `index.html` con tus piezas reales: `nombre`, `tipo`, `cat`, `precio` y la ruta de la imagen.
+3. Con 5–10 piezas ya tienes el catálogo completo.
 
 ## Notas
 
-- El **collar** es aproximado (la malla facial no incluye el cuello), por eso tiene controles de ajuste. Los aretes y anillos son más precisos.
-- Funciona mejor con buena luz y la cara/mano bien visible.
-- En móvil usa la cámara frontal; la imagen se muestra en modo espejo.
-- Librerías usadas: MediaPipe Tasks Vision v0.10.14 (CDN). No hay costos ni API keys.
-
-## Posibles mejoras siguientes
-- Modo "subir foto" para probar sobre una imagen guardada.
-- Guardar automáticamente la pieza elegida por cliente.
-- Catálogo de varias piezas reales con selector de modelo.
-- Botón "Agregar a mi pedido" / WhatsApp al final.
+- El collar es aproximado (la malla facial no cubre el cuello), por eso tiene controles de ajuste. Aretes y anillos son más precisos.
+- Funciona mejor con buena luz y la cara o mano bien visibles.
+- Las fotos que sube cada persona no se envían a ningún servidor: se procesan en su propio navegador.
+- Librerías: MediaPipe Tasks Vision v0.10.14 (CDN). Sin costos ni API keys.
