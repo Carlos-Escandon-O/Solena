@@ -453,12 +453,15 @@ function pathCuello(c, lm){
   const jaw=Math.hypot(jawR.x-jawL.x, jawR.y-jawL.y);
   c.ellipse((jawL.x+jawR.x)/2, chin.y + fh*0.12, jaw*0.42, fh*0.30, 0, 0, Math.PI*2);
 }
-function pathFranja(c, punto, dir, largo, ancho){
-  const ux=dir.x, uy=dir.y, nx=-uy, ny=ux;
-  c.moveTo(punto.x-ux*largo+nx*ancho, punto.y-uy*largo+ny*ancho);
-  c.lineTo(punto.x+ux*largo+nx*ancho, punto.y+uy*largo+ny*ancho);
-  c.lineTo(punto.x+ux*largo-nx*ancho, punto.y+uy*largo-ny*ancho);
-  c.lineTo(punto.x-ux*largo-nx*ancho, punto.y-uy*largo-ny*ancho);
+/* Oculta solo la mitad "de atrás" (la de arriba), dejando un arco continuo */
+function pathMitad(c, punto, dir, largo){
+  let nx=-dir.y, ny=dir.x;
+  if(ny>0){ nx=-nx; ny=-ny; }
+  const ancho=canvas.width*2, tx=-ny, ty=nx;
+  c.moveTo(punto.x+tx*ancho, punto.y+ty*ancho);
+  c.lineTo(punto.x+nx*largo+tx*ancho, punto.y+ny*largo+ty*ancho);
+  c.lineTo(punto.x+nx*largo-tx*ancho, punto.y+ny*largo-ty*ancho);
+  c.lineTo(punto.x-tx*ancho, punto.y-ty*ancho);
   c.closePath();
 }
 function drawEarrings(lm){
@@ -503,7 +506,7 @@ function drawRings(landmarks){
   const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
   const px = pip.x + o.x*canvas.width, py = pip.y + o.y*canvas.height;
   drawImg(img, px, py, w, h, ang + Math.PI/2, 0.5);
-  ocluir(c => pathFranja(c, {x:px,y:py}, {x:dx/lenD,y:dy/lenD}, fingerLen*1.5, fingerLen*0.18*o.scale));
+  ocluir(c => pathMitad(c, {x:px,y:py}, {x:dx/lenD,y:dy/lenD}, w*0.75));
 }
 function drawPulseras(landmarks){
   if (!landmarks || !landmarks.length) return;
@@ -519,7 +522,7 @@ function drawPulseras(landmarks){
   const cx = wrist.x - ux*w*0.12 + o.x*canvas.width;
   const cy = wrist.y - uy*w*0.12 + o.y*canvas.height;
   drawImg(img, cx, cy, w, h, ang + Math.PI/2, 0.5);
-  ocluir(c => pathFranja(c, {x:cx,y:cy}, {x:ux,y:uy}, len*1.5, len*0.13*o.scale));
+  ocluir(c => pathMitad(c, {x:cx,y:cy}, {x:ux,y:uy}, w*0.75));
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
