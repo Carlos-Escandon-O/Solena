@@ -451,7 +451,7 @@ function pathCuello(c, lm){
   const chin=P(lm,152), fore=P(lm,10), jawL=P(lm,234), jawR=P(lm,454);
   const fh=Math.hypot(fore.x-chin.x, fore.y-chin.y);
   const jaw=Math.hypot(jawR.x-jawL.x, jawR.y-jawL.y);
-  c.ellipse((jawL.x+jawR.x)/2, chin.y + fh*0.20, jaw*0.30, fh*0.26, 0, 0, Math.PI*2);
+  c.ellipse((jawL.x+jawR.x)/2, chin.y + fh*0.12, jaw*0.42, fh*0.30, 0, 0, Math.PI*2);
 }
 function pathFranja(c, punto, dir, largo, ancho){
   const ux=dir.x, uy=dir.y, nx=-uy, ny=ux;
@@ -482,7 +482,12 @@ function drawNecklace(lm){
   const topY = chin.y + fh*0.10 + o.y*canvas.height;
   const w = jaw * 1.75 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 0.8);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, topY + h*0.16, canvas.width, canvas.height);
+  ctx.clip();
   drawImg(img, cx, topY, w, h, 0, 0.10);
+  ctx.restore();
   ocluir(c => pathCuello(c, lm));
 }
 function drawRings(landmarks){
