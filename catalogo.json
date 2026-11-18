@@ -1,19 +1,252 @@
 [
-  { "id": "c5", "nombre": "Collar Vaquero", "tipo": "collar", "cat": "oro", "precio": 850, "stock": 3, "src": "assets/collar-vaquero.png", "recortar": true },
-  { "id": "a1", "nombre": "Aretes Sol", "tipo": "aretes", "cat": "oro", "precio": 380, "stock": 8 },
-  { "id": "a2", "nombre": "Aretes Luna", "tipo": "aretes", "cat": "plata", "precio": 290, "stock": 6 },
-  { "id": "a3", "nombre": "Aretes Perla", "tipo": "aretes", "cat": "perlas", "precio": 420, "stock": 5 },
-  { "id": "a4", "nombre": "Aretes Amatista", "tipo": "aretes", "cat": "piedras", "precio": 460, "stock": 4 },
-  { "id": "a5", "nombre": "Aretes Ámbar", "tipo": "aretes", "cat": "oro", "precio": 350, "stock": 7 },
-  { "id": "c1", "nombre": "Collar Aurora", "tipo": "collar", "cat": "oro", "precio": 690, "stock": 4 },
-  { "id": "c2", "nombre": "Collar Brisa", "tipo": "collar", "cat": "plata", "precio": 520, "stock": 3 },
-  { "id": "c3", "nombre": "Collar Perla", "tipo": "collar", "cat": "perlas", "precio": 780, "stock": 2 },
-  { "id": "c4", "nombre": "Collar Cuarzo", "tipo": "collar", "cat": "piedras", "precio": 640, "stock": 3 },
-  { "id": "r1", "nombre": "Anillo Aurora", "tipo": "anillo", "cat": "oro", "precio": 450, "stock": 5 },
-  { "id": "r2", "nombre": "Anillo Luna", "tipo": "anillo", "cat": "plata", "precio": 340, "stock": 6 },
-  { "id": "r3", "nombre": "Anillo Amatista", "tipo": "anillo", "cat": "piedras", "precio": 520, "stock": 3 },
-  { "id": "p1", "nombre": "Pulsera Aurora", "tipo": "pulsera", "cat": "oro", "precio": 520, "stock": 4 },
-  { "id": "p2", "nombre": "Pulsera Brisa", "tipo": "pulsera", "cat": "plata", "precio": 390, "stock": 5 },
-  { "id": "p3", "nombre": "Pulsera Perla", "tipo": "pulsera", "cat": "perlas", "precio": 610, "stock": 2 },
-  { "id": "p4", "nombre": "Pulsera Amatista", "tipo": "pulsera", "cat": "piedras", "precio": 580, "stock": 3 }
+  {
+    "id": "p1",
+    "nombre": "Pulsera Cuentas Azules",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-azules.png"
+  },
+  {
+    "id": "c1",
+    "nombre": "Collar Lazo Plateado",
+    "tipo": "collar",
+    "cat": "plata",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-lazo-plateado.png",
+    "recortar": true
+  },
+  {
+    "id": "p2",
+    "nombre": "Pulsera Cuentas Marrones",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-marrones.png"
+  },
+  {
+    "id": "a1",
+    "nombre": "Arete Espiral Dorado",
+    "tipo": "aretes",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-espiral-dorado.png"
+  },
+  {
+    "id": "a2",
+    "nombre": "Arete Aro con Dije",
+    "tipo": "aretes",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-aro-con-dije.png"
+  },
+  {
+    "id": "c2",
+    "nombre": "Collar Lazo Plateado Largo",
+    "tipo": "collar",
+    "cat": "plata",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-lazo-plateado-largo.png",
+    "recortar": true
+  },
+  {
+    "id": "c3",
+    "nombre": "Collar Lazo Rojo",
+    "tipo": "collar",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-lazo-rojo.png",
+    "recortar": true
+  },
+  {
+    "id": "c4",
+    "nombre": "Collar Candado Dorado",
+    "tipo": "collar",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-candado-dorado.png",
+    "recortar": true
+  },
+  {
+    "id": "c5",
+    "nombre": "Collar Lazo Verde",
+    "tipo": "collar",
+    "cat": "plata",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-lazo-verde.png",
+    "recortar": true
+  },
+  {
+    "id": "c6",
+    "nombre": "Collar Corazon Dorado",
+    "tipo": "collar",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-corazon-dorado.png",
+    "recortar": true
+  },
+  {
+    "id": "a3",
+    "nombre": "Arete Pececito Dorado",
+    "tipo": "aretes",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-pececito-dorado.png"
+  },
+  {
+    "id": "a4",
+    "nombre": "Arete Rosado Perlas",
+    "tipo": "aretes",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-rosado-perlas.png"
+  },
+  {
+    "id": "a5",
+    "nombre": "Arete Rosado Perlas Largo",
+    "tipo": "aretes",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-rosado-perlas-largo.png"
+  },
+  {
+    "id": "c7",
+    "nombre": "Collar Estrella y Bota",
+    "tipo": "collar",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-estrella-y-bota.png",
+    "recortar": true
+  },
+  {
+    "id": "r1",
+    "nombre": "Anillo Ojo de Tigre",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-ojo-de-tigre.png"
+  },
+  {
+    "id": "r2",
+    "nombre": "Anillo Perla Grande",
+    "tipo": "anillo",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-perla-grande.png"
+  },
+  {
+    "id": "r3",
+    "nombre": "Anillo Piedra Roja",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-piedra-roja.png"
+  },
+  {
+    "id": "r4",
+    "nombre": "Anillo Piedra Rosa",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-piedra-rosa.png"
+  },
+  {
+    "id": "r5",
+    "nombre": "Anillo Piedra Ambar",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-piedra-ambar.png"
+  },
+  {
+    "id": "r6",
+    "nombre": "Anillo Doble Corazon Plata",
+    "tipo": "anillo",
+    "cat": "plata",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-doble-corazon-plata.png"
+  },
+  {
+    "id": "r7",
+    "nombre": "Anillo Piedra Negra",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-piedra-negra.png"
+  },
+  {
+    "id": "r8",
+    "nombre": "Anillo Perla Clara",
+    "tipo": "anillo",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-perla-clara.png"
+  },
+  {
+    "id": "r9",
+    "nombre": "Anillo Piedra Crema",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-piedra-crema.png"
+  },
+  {
+    "id": "r10",
+    "nombre": "Anillo Perla Dorada",
+    "tipo": "anillo",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-perla-dorada.png"
+  },
+  {
+    "id": "r11",
+    "nombre": "Anillo Amatista",
+    "tipo": "anillo",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-amatista.png"
+  },
+  {
+    "id": "r12",
+    "nombre": "Anillo Perla Oro",
+    "tipo": "anillo",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-perla-oro.png"
+  },
+  {
+    "id": "r13",
+    "nombre": "Anillo Aro Dorado",
+    "tipo": "anillo",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/anillo-aro-dorado.png"
+  }
 ]
