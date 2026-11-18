@@ -3,6 +3,24 @@
 Prototipo de probador virtual de joyería funciona en el navegador, sin instalar nada.
 Usa la cámara + MediaPipe (gratis) para colocar aretes, collar y anillos sobre tu imagen en tiempo real.
 
+## 🌐 Sitio en vivo
+
+**https://carlos-escandon-o.github.io/Solena/**
+
+Publicado con GitHub Pages (HTTPS, funciona desde el celular).
+
+## 📱 Cartel QR para el bazar
+
+![Cartel QR de Solena](cartel-qr-solena.png)
+
+El archivo `cartel-qr-solena.png` está listo para imprimir. Si cambias la URL, regenera el cartel con:
+
+```bash
+python3 generar_qr.py
+```
+
+Requiere `qrcode` y `pillow` (`pip install qrcode pillow`).
+
 ## Cómo verlo
 
 La cámara solo funciona en **HTTPS** o en **localhost**. Tienes dos opciones:
