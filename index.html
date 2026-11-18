@@ -208,8 +208,9 @@ const HAND_MODEL = "https://storage.googleapis.com/mediapipe-models/hand_landmar
 /* ============================================================
    CONFIGURACIÓN DEL NEGOCIO  ← edita aquí
    ============================================================ */
-const WHATSAPP = "5210000000000";        // ← TU número con código de país, sin espacios ni +
-const BASE_PRUEBAS_REALES = 0;           // ← solo cambia si YA tienes pruebas reales registradas
+const WHATSAPP = "525539753964";         // 52 + 55 3975 3964
+// Baseline SOLO con pruebas reales documentadas. Ejemplo: { a1: 2, c3: 1, r2: 1 }
+const BASE_PRUEBAS_REALES_POR_PIEZA = {};
 /* ============================================================ */
 
 const video = document.getElementById('video');
@@ -303,22 +304,28 @@ const CATALOGO = [
 
 state.pieza = CATALOGO[0];
 
-/* ---------- Contador social (real, por día y por sesión) ---------- */
+/* ---------- Contador social (real, por día / sesión / pieza) ---------- */
 function hoy(){
   const d = new Date();
   return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
+function nombreDe(id){ return CATALOGO.find(p => p.id===id)?.nombre || id; }
 function leerContador(){
   try {
     const d = JSON.parse(localStorage.getItem('solena_contador') || 'null');
-    if (d && d.fecha === hoy()) return d;
+    if (d && d.fecha === hoy() && d.porPieza) return d;
   } catch(e){}
-  return { fecha: hoy(), n: BASE_PRUEBAS_REALES };
+  return { fecha: hoy(), porPieza: { ...BASE_PRUEBAS_REALES_POR_PIEZA } };
 }
-function pintarContador(n){
-  counterEl.textContent = n <= 1
-    ? '💫 Sé la primera persona en probarlo hoy'
-    : `💫 ${n} personas se lo probaron hoy`;
+function pintarContador(d){
+  const total = Object.values(d.porPieza).reduce((a,b)=>a+b,0);
+  if (total === 0){ counterEl.textContent = '💫 Sé la primera persona en probarlo hoy'; return; }
+  if (total === 1){ counterEl.textContent = '💫 1 persona se lo probó hoy'; return; }
+  const top = Object.entries(d.porPieza)
+    .filter(([,n]) => n > 0)
+    .sort((a,b) => b[1]-a[1])[0];
+  const detalle = top ? ` · ${nombreDe(top[0])} ×${top[1]}` : '';
+  counterEl.textContent = `💫 ${total} personas se lo probaron hoy${detalle}`;
 }
 function registrarPrueba(){
   try {
@@ -326,9 +333,10 @@ function registrarPrueba(){
     sessionStorage.setItem('solena_conto', '1');
   } catch(e){}
   const d = leerContador();
-  d.n += 1;
+  const id = state.pieza ? state.pieza.id : 'general';
+  d.porPieza[id] = (d.porPieza[id] || 0) + 1;
   try { localStorage.setItem('solena_contador', JSON.stringify(d)); } catch(e){}
-  pintarContador(d.n);
+  pintarContador(d);
 }
 
 /* ---------- Modelos ---------- */
@@ -628,7 +636,7 @@ document.getElementById('waBtn').onclick = () => {
 };
 
 document.getElementById('startBtn').onclick = startCamera;
-pintarContador(leerContador().n);
+pintarContador(leerContador());
 pintarGrid();
 syncControls();
 initModels().catch(e => {

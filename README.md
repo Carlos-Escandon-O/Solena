@@ -23,12 +23,13 @@ Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 Al inicio del `<script>` en `index.html` hay dos valores que debes editar:
 
 ```js
-const WHATSAPP = "5210000000000";  // ← reemplaza por tu número con código de país
-const BASE_PRUEBAS_REALES = 0;     // ← base del contador (solo si tienes pruebas reales previas)
+const WHATSAPP = "525539753964";                  // configurado con tu número
+const BASE_PRUEBAS_REALES_POR_PIEZA = {};         // solo con pruebas reales documentadas
 ```
 
-1. **WHATSAPP:** tu número sin `+` ni espacios (ej. `525512345678`). Mientras siga con el valor de ejemplo, el botón copiará el mensaje pero no abrirá el chat.
-2. **BASE_PRUEBAS_REALES:** el contador es **real**: cuenta una prueba por sesión y se reinicia cada día. Si ya llevas un registro genuine de pruebas anteriores, pon ese número aquí. Te recomiendo dejarlo en `0`: un cartel que diga "47 personas" cuando el puesto está vacío rompe la confianza del cliente y puede considerarse publicidad engañosa. El contador crece solo con pruebas verdaderas.
+1. **WHATSAPP:** ya está tu número (`52` + `55 3975 3964`). El botón abre el chat con el nombre y precio de la pieza ya escritos.
+2. **Contador:** es **real y por pieza**: cuenta una prueba por sesión, se reinicia cada día y muestra qué pieza está siendo más probada (ej. *"💫 4 personas se lo probaron hoy · Collar Perla ×2"*). Las variaciones salen solas porque cada persona elige una joya distinta.
+   Si llevas un registro **verdadero** de pruebas anteriores, puedes cargarlo como base, por ejemplo: `{ a1: 2, c3: 1, r2: 1 }`. Déjalo vacío si no: un cartel con números inventados se nota y rompe la confianza del cliente (además de ser publicidad engañosa).
 
 ## 📱 Cartel QR para el bazar
 
