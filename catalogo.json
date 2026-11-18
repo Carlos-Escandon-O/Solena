@@ -19,13 +19,13 @@
     "recortar": true
   },
   {
-    "id": "p2",
-    "nombre": "Pulsera Cuentas Marrones",
-    "tipo": "pulsera",
-    "cat": "piedras",
+    "id": "a6",
+    "nombre": "Arete Cristal Perla",
+    "tipo": "aretes",
+    "cat": "perlas",
     "precio": 0,
     "stock": 1,
-    "src": "assets/pulsera-cuentas-marrones.png"
+    "src": "assets/arete-cristal-perla.png"
   },
   {
     "id": "a1",
@@ -248,5 +248,107 @@
     "precio": 0,
     "stock": 1,
     "src": "assets/anillo-aro-dorado.png"
+  },
+  {
+    "id": "p2",
+    "nombre": "Pulsera Cuentas Rosadas",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-rosadas.png"
+  },
+  {
+    "id": "p3",
+    "nombre": "Pulsera Cuentas Multicolor",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-multicolor.png"
+  },
+  {
+    "id": "p4",
+    "nombre": "Pulsera Cuentas Marrones",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-marrones.png"
+  },
+  {
+    "id": "p5",
+    "nombre": "Pulsera Cuentas Negras",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-negras.png"
+  },
+  {
+    "id": "p6",
+    "nombre": "Pulsera Cuentas Pastel",
+    "tipo": "pulsera",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/pulsera-cuentas-pastel.png"
+  },
+  {
+    "id": "a7",
+    "nombre": "Arete Perlas Colgante",
+    "tipo": "aretes",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-perlas-colgante.png"
+  },
+  {
+    "id": "c8",
+    "nombre": "Collar Azul Lazo",
+    "tipo": "collar",
+    "cat": "plata",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-azul-lazo.png",
+    "recortar": true
+  },
+  {
+    "id": "a8",
+    "nombre": "Arete Rosado Cuentas",
+    "tipo": "aretes",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-rosado-cuentas.png"
+  },
+  {
+    "id": "a9",
+    "nombre": "Arete Dorado Cuentas",
+    "tipo": "aretes",
+    "cat": "oro",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/arete-dorado-cuentas.png"
+  },
+  {
+    "id": "c9",
+    "nombre": "Collar Piedras Mixtas",
+    "tipo": "collar",
+    "cat": "piedras",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-piedras-mixtas.png",
+    "recortar": true
+  },
+  {
+    "id": "c10",
+    "nombre": "Collar Dorado Perlas",
+    "tipo": "collar",
+    "cat": "perlas",
+    "precio": 0,
+    "stock": 1,
+    "src": "assets/collar-dorado-perlas.png",
+    "recortar": true
   }
 ]

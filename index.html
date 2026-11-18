@@ -500,7 +500,16 @@ function drawEarrings(lm){
   const o = state.offsets.aretes, img = imagenActiva();
   const w = d * 0.15 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 2.1);
-  [earA, earB].forEach(p => drawImg(img, p.x + o.x*canvas.width, p.y + o.y*canvas.height, w, h, roll, 0.10));
+  // Espejo: un arete normal, el del otro lado volteado horizontalmente
+  [[earA, 1], [earB, -1]].forEach(([p, dir]) => {
+    if (!usable(img)) return;
+    ctx.save();
+    ctx.translate(p.x + o.x*canvas.width, p.y + o.y*canvas.height);
+    ctx.rotate(roll);
+    ctx.scale(dir, 1);
+    ctx.drawImage(img, -w/2, -h*0.10, w, h);
+    ctx.restore();
+  });
 }
 function drawNecklace(lm){
   const chin = P(lm,152), fore = P(lm,10), jawL = P(lm,234), jawR = P(lm,454);
@@ -535,10 +544,8 @@ function drawRings(landmarks){
   const w = fingerLen * 1.9 * o.scale;
   const h = w * (img.naturalHeight / img.naturalWidth || 0.56);
   const px = pip.x + o.x*canvas.width, py = pip.y + o.y*canvas.height;
+  // Sin corte: el anillo se ve completo (el usuario prefiere la imagen tal cual)
   drawImg(img, px, py, w, h, ang + Math.PI/2, 0.5);
-  const eje = {x:dx/lenD, y:dy/lenD};
-  const lado = ladoLejano(hand, eje, f.mcp, f.pip);
-  ocluir(c => pathMitad(c, {x:px,y:py}, eje, h*0.55, lado));
 }
 function drawPulseras(landmarks){
   if (!landmarks || !landmarks.length) return;
