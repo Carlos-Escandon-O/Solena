@@ -603,10 +603,12 @@ function drawPulseras(landmarks){
   if (!usable(img)) return;
   // Ancho de la mano (nudillos 5→17). La pulsera se ajusta al grosor real de la muñeca.
   const nudillos = Math.hypot(P(hand,5).x-P(hand,17).x, P(hand,5).y-P(hand,17).y) || len*0.70;
-  const w = nudillos * 1.50 * o.scale;   // ancho total del aro (incluye margen transparente)
-  const h = w * 0.30;                    // aplanamiento por la perspectiva de la muñeca
-  const cx = wrist.x - ux*len*0.05 + o.x*canvas.width;
-  const cy = wrist.y - uy*len*0.05 + o.y*canvas.height;
+  const w = nudillos * 1.42 * o.scale;   // ancho total del aro (incluye margen transparente)
+  const h = w * 0.27;                    // aplanamiento por la perspectiva de la muñeca
+  // La muñeca real está un poco más abajo del punto 0 del modelo; bajar el arco
+  // evita que parezca flotando por encima del brazo (como si ignorara la gravedad).
+  const cx = wrist.x + ux*len*0.04 + o.x*canvas.width;
+  const cy = wrist.y + uy*len*0.04 + (o.y + 0.018)*canvas.height;
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(ang + Math.PI/2);
