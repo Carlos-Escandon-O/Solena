@@ -446,6 +446,20 @@ function avg(lm, ids){
   return { x:x/ids.length, y:y/ids.length };
 }
 function usable(img){ return img && img.complete && img.naturalWidth > 0; }
+/* El detector a veces confunde una cara con una mano (mandíbula → muñeca).
+   Validamos la geometría básica de la palma antes de dibujar nada. */
+function esMano(lm){
+  if (!lm || lm.length < 21) return false;
+  const q = i => ({ x: lm[i].x*canvas.width, y: lm[i].y*canvas.height });
+  const d = (a,b) => Math.hypot(q(a).x-q(b).x, q(a).y-q(b).y);
+  const palma = d(0,9), ancho = d(5,17), indice = d(5,6), meñique = d(17,18);
+  if (palma < 8 || ancho < 8) return false;
+  const A = ancho/palma, I = indice/palma, M = meñique/palma;
+  if (!(A > 0.55 && A < 1.55 && I > 0.12 && I < 0.75 && M > 0.10 && M < 0.70)) return false;
+  // Los dedos tienen que extenderse más allá de la palma desde la muñeca
+  const puntas = [4,8,12,16,20].map(i => d(0,i));
+  return puntas.filter(v => v > palma*0.98).length >= 3;
+}
 function imagenActiva(){
   return state.custom[state.tipo] ||
     (state.pieza && state.pieza.tipo === state.tipo ? state.pieza.img : null);
@@ -558,26 +572,23 @@ function drawPulseras(landmarks){
   const ang = Math.atan2(dy,dx);
   const o = state.offsets.pulsera, img = imagenActiva();
   if (!usable(img)) return;
-  // Ancho de la mano (nudillos 5→17) y, a partir de ahí, el grosor de la muñeca.
-  const nudillos = Math.hypot(P(hand,5).x-P(hand,17).x, P(hand,5).y-P(hand,17).y);
-  const grosor = (nudillos || len*0.70) * 0.78;
-  const w = grosor * 1.25 * o.scale;
-  const h = w * 0.60;
-  // La muñeca queda un poco por debajo de la línea muñeca→nudillo
+  // Ancho de la mano (nudillos 5→17). La pulsera se ajusta al grosor real de la muñeca.
+  const nudillos = Math.hypot(P(hand,5).x-P(hand,17).x, P(hand,5).y-P(hand,17).y) || len*0.70;
+  const w = nudillos * 1.50 * o.scale;   // ancho total del aro (incluye margen transparente)
+  const h = w * 0.30;                    // aplanamiento por la perspectiva de la muñeca
   const cx = wrist.x - ux*len*0.05 + o.x*canvas.width;
   const cy = wrist.y - uy*len*0.05 + o.y*canvas.height;
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(ang + Math.PI/2);
-  // sombra suave debajo, para que se vea apoyada en la piel
-  ctx.save();
-  ctx.globalAlpha = 0.20;
-  ctx.filter = 'blur(7px)';
-  ctx.fillStyle = '#000';
-  ctx.beginPath(); ctx.ellipse(0, h*0.16, w/2, h/2, 0, 0, Math.PI*2); ctx.fill();
+  // Solo la mitad delantera del aro: un arco suave que cruza la muñeca,
+  // con los extremos más cortos (perspectiva) en vez de un óvalo plano.
+  ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight*0.52,
+                -w/2, -h/2, w, h);
   ctx.restore();
-  ctx.drawImage(img, -w/2, -h/2, w, h);
-  ctx.restore();
+  // El trozo que se va hacia el codo se tapa con la piel original:
+  // la pulsera "desaparece" detrás de la muñeca en lugar de flotar.
+  ocluir(c => pathMitad(c, {x:cx,y:cy}, {x:ux,y:uy}, h*0.62, -1));
 }
 function usaManos(){ return state.tipo === 'anillo' || state.tipo === 'pulsera'; }
 function pintarSobre(faces, hands){
@@ -598,7 +609,7 @@ function loop(){
     ctx.drawImage(video,0,0,canvas.width,canvas.height);
     const now = Math.max(performance.now(), lastTime+1);
     lastTime = now;
-    if (usaManos()) pintarSobre(null, handLandmarker.detectForVideo(video,now).landmarks);
+    if (usaManos()) pintarSobre(null, (handLandmarker.detectForVideo(video,now).landmarks || []).filter(esMano));
     else pintarSobre(faceLandmarker.detectForVideo(video,now).faceLandmarks, null);
   }
   requestAnimationFrame(loop);
@@ -611,7 +622,7 @@ function renderPhoto(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.drawImage(state.photo,0,0,canvas.width,canvas.height);
   if (usaManos()) {
-    const L = handImg.detect(state.photo).landmarks;
+    const L = (handImg.detect(state.photo).landmarks || []).filter(esMano);
     pintarSobre(null, L);
   } else pintarSobre(faceImg.detect(state.photo).faceLandmarks, null);
   document.getElementById('result').classList.remove('show');
