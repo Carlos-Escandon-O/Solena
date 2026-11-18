@@ -75,6 +75,23 @@ El token queda guardado **solo en ese navegador**. No se envía a ningún servid
 - `stock: 0` → la pieza aparece como **Agotado** y el botón de WhatsApp se desactiva.
 - Si el archivo JSON no carga (sin conexión), la web usa un catálogo interno de respaldo.
 
+## 🧼 Preparar fotos automáticamente
+
+Script que quita el fondo, separa piezas y ajusta medidas en un solo paso:
+
+```bash
+pip install -r requirements.txt
+# pon tus fotos en fotos-crudas/ con prefijo según el tipo:
+# aretes-...  collar-...  anillo-...  pulsera-...
+python3 preparar_fotos.py
+```
+
+- Detecta **varias piezas en una misma foto** (islas de transparencia) y las guarda por separado.
+- Escala a 600×1200 (aretes), 1200×1200 (collares), 1200×675 (anillos) o 1200×720 (pulseras).
+- Guarda en `assets/` y escribe `catalogo-sugerido.json` con las entradas para el panel Admin.
+- Para fotos con **varias pulseras juntas**, funciona siempre que no se toquen.
+- Si la joya está sostenida por una mano o se toca con otra, recorta esa foto antes.
+
 ## 📸 Poner tus piezas reales
 
 1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Yo puedo quitar el fondo si me la mandas.
