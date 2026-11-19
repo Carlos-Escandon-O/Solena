@@ -9,10 +9,30 @@ Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, colla
 
 Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 
+## 📁 Estructura del proyecto
+
+```
+Solenna/
+├── index.html              # web principal (probador virtual)
+├── admin.html              # panel de administración del inventario
+├── preparar-fotos.html     # herramienta auxiliar para preparar fotos
+├── catalogo.json           # inventario real (38 piezas, editable desde /admin.html)
+├── assets/                 # 39 PNGs de joyería (transparent background)
+├── fotos-crudas/           # tus fotos sin recortar (para preparar_fotos.py)
+├── preparar_fotos.py       # recorte automático (rembg + BiRefNet) → assets/
+├── fotos_app.py            # interfaz web local para el mismo flujo de recorte
+├── generar_qr.py           # regenera el cartel QR del bazar
+├── cartel-qr-solenna.png   # cartel listo para imprimir
+├── favicon.svg
+└── ESPECIFICACIONES_FOTOS.md  # cómo fotografiar y entregar las joyas
+```
+
 ## ✨ Funciones
 
 - **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
-- **Catálogo de 17 piezas**: 16 de ejemplo + 1 pieza real (Collar Vaquero, con imagen propia en `assets/`), con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
+- **Catálogo interno de 17 piezas de ejemplo**: 16 de ejemplo + 1 pieza real (Collar Vaquero, $850), con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
+- **`catalogo.json` como fuente de verdad del inventario**: 38 piezas editables desde el panel Admin (nombre, tipo, categoría, precio, stock, imagen). Los precios del `catalogo.json` están en 0 hasta que los configures en el panel.
+- ⚠️ El ejemplo "Collar Vaquero" referencia `assets/collar-vaquero.png`, que **no está aún en el repo** — al ser un ejemplo, el sitio funciona sin ella (o bien sustituye la imagen o cambia `src` en `index.html`).
 - **Ajuste manual** de posición y tamaño, dedo para anillos, muñeca para pulseras, y opción de subir tu propia joya en PNG.
 - **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
 - **Foto descargable** y botón compartir.
@@ -102,14 +122,15 @@ Si ya tienes la joya con fondo transparente desde otra herramienta, puedes salta
 
 ## 📸 Poner tus piezas reales
 
-1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Yo puedo quitar el fondo si me la mandas.
-2. Reemplaza el array `CATALOGO` en `index.html` con tus piezas reales: `nombre`, `tipo`, `cat`, `precio` y `src` con la ruta de la imagen. Ejemplo ya implementado:
+1. Foto de cada joya de frente, bien iluminada y centrada, con fondo liso o transparente (PNG). Ver `ESPECIFICACIONES_FOTOS.md`.
+2. **La fuente de verdad del inventario es `catalogo.json`** (no `CATALOGO` dentro de `index.html`, que queda como respaldo si no carga el JSON). El modo recomendado: abre `/admin.html` y agrega/edita desde ahí; o edita el JSON a mano:
 
-```js
-{ id:'c5', nombre:'Collar Vaquero', tipo:'collar', cat:'oro', precio:850, src:'assets/collar-vaquero.png' }
+```json
+{ "id": "c13", "nombre": "Collar Vaquero", "tipo": "collar", "cat": "oro", "precio": 850, "stock": 3, "src": "assets/collar-vaquero.png" }
 ```
 
-3. Con 5–10 piezas ya tienes el catálogo completo. Las imágenes van en `assets/` y se recortan con fondo transparente (ver `ESPECIFICACIONES_FOTOS.md`).
+3. Las imágenes van en `assets/` y se recortan con fondo transparente (ver `ESPECIFICACIONES_FOTOS.md` o usa `preparar_fotos.py`).
+4. Con 5–10 piezas reales ya es usable como catálogo; hoy hay 38 piezas de ejemplo con `precio: 0` esperando que las personalices o las sustituyas por las tuyas.
 
 ## Notas
 
