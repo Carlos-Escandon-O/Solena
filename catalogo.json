@@ -4,224 +4,249 @@
     "nombre": "Collar Negro Sutil",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-01-collar-negro-sutil.png"
+    "src": "assets/pieza-01-collar-negro-sutil.png",
+    "recortar": false
   },
   {
     "id": "c02",
     "nombre": "Collar Rojo Oscuro",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-02-collar-rojo-oscuro.png"
+    "src": "assets/pieza-02-collar-rojo-oscuro.png",
+    "recortar": false
   },
   {
     "id": "c03",
     "nombre": "Collar Rosado Vivo",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-03-collar-rosado-vivo.png"
+    "src": "assets/pieza-03-collar-rosado-vivo.png",
+    "recortar": false
   },
   {
     "id": "c04",
     "nombre": "Collar Plateado Delicado",
     "tipo": "collar",
     "cat": "plata",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-04-collar-plateado-delicado.png"
+    "src": "assets/pieza-04-collar-plateado-delicado.png",
+    "recortar": false
   },
   {
     "id": "c05",
     "nombre": "Collar Dorado Clásico",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-05-collar-dorado-clasico.png"
+    "src": "assets/pieza-05-collar-dorado-clasico.png",
+    "recortar": false
   },
   {
     "id": "c06",
     "nombre": "Collar Dorado Olivo",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-06-collar-dorado-olivo.png"
+    "src": "assets/pieza-06-collar-dorado-olivo.png",
+    "recortar": false
   },
   {
     "id": "c07",
     "nombre": "Collar Dorado Claro",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-07-collar-dorado-claro.png"
+    "src": "assets/pieza-07-collar-dorado-claro.png",
+    "recortar": false
   },
   {
     "id": "c08",
     "nombre": "Collar Rojo Intenso",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-08-collar-rojo-intenso.png"
+    "src": "assets/pieza-08-collar-rojo-intenso.png",
+    "recortar": false
   },
   {
     "id": "c09",
     "nombre": "Collar Champán",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-09-collar-champan.png"
+    "src": "assets/pieza-09-collar-champan.png",
+    "recortar": false
   },
   {
     "id": "c10",
     "nombre": "Collar Azul Marino",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-10-collar-azul-marino.png"
+    "src": "assets/pieza-10-collar-azul-marino.png",
+    "recortar": false
   },
   {
     "id": "c11",
     "nombre": "Collar Dorado Brillante",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-11-collar-dorado-brillante.png"
+    "src": "assets/pieza-11-collar-dorado-brillante.png",
+    "recortar": false
   },
   {
     "id": "c12",
-    "nombre": "Collar Rosa Tenue",
-    "tipo": "collar",
+    "nombre": "Pulsera Rosa Tenue",
+    "tipo": "pulsera",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-12-collar-rosa-tenue.png"
+    "src": "assets/pieza-12-collar-rosa-tenue.png",
+    "recortar": false
   },
   {
     "id": "p13",
-    "nombre": "Pulsera Dorada Cálida",
-    "tipo": "pulsera",
+    "nombre": "Anillo Dorado Cálido",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-13-pulsera-dorada-calida.png"
+    "src": "assets/pieza-13-pulsera-dorada-calida.png",
+    "recortar": false
   },
   {
     "id": "p14",
-    "nombre": "Pulsera Plateada Suave",
-    "tipo": "pulsera",
+    "nombre": "Anillo Plateado Suave",
+    "tipo": "anillo",
     "cat": "plata",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-14-pulsera-plateada-suave.png"
+    "src": "assets/pieza-14-pulsera-plateada-suave.png",
+    "recortar": false
   },
   {
     "id": "p15",
-    "nombre": "Pulsera Cobre",
-    "tipo": "pulsera",
+    "nombre": "Anillo Cobre",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-15-pulsera-cobre.png"
+    "src": "assets/pieza-15-pulsera-cobre.png",
+    "recortar": false
   },
   {
     "id": "a16",
     "nombre": "Arete Dorado Largo",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-16-arete-dorado-largo.png"
+    "src": "assets/pieza-16-arete-dorado-largo.png",
+    "recortar": false
   },
   {
     "id": "c17",
     "nombre": "Collar Negro Minimalista",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-17-collar-negro-minimalista.png"
+    "src": "assets/pieza-17-collar-negro-minimalista.png",
+    "recortar": false
   },
   {
     "id": "p18",
-    "nombre": "Pulsera Cobre Naranja",
-    "tipo": "pulsera",
+    "nombre": "Anillo Cobre Naranja",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-18-pulsera-cobre-naranja.png"
+    "src": "assets/pieza-18-pulsera-cobre-naranja.png",
+    "recortar": false
   },
   {
     "id": "p19",
-    "nombre": "Pulsera Marrón",
-    "tipo": "pulsera",
+    "nombre": "Anillo Marrón",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-19-pulsera-marron.png"
+    "src": "assets/pieza-19-pulsera-marron.png",
+    "recortar": false
   },
   {
     "id": "p20",
-    "nombre": "Pulsera Café",
-    "tipo": "pulsera",
+    "nombre": "Anillo Café",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-20-pulsera-cafe.png"
+    "src": "assets/pieza-20-pulsera-cafe.png",
+    "recortar": false
   },
   {
     "id": "a21",
     "nombre": "Arete Dorado Claro",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-21-arete-dorado-claro.png"
+    "src": "assets/pieza-21-arete-dorado-claro.png",
+    "recortar": false
   },
   {
     "id": "p22",
-    "nombre": "Pulsera Ámbar",
-    "tipo": "pulsera",
+    "nombre": "Anillo Ámbar",
+    "tipo": "anillo",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-22-pulsera-ambar.png"
+    "src": "assets/pieza-22-pulsera-ambar.png",
+    "recortar": false
   },
   {
     "id": "a23",
     "nombre": "Arete Rosado",
     "tipo": "aretes",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-23-arete-rosado.png"
+    "src": "assets/pieza-23-arete-rosado.png",
+    "recortar": false
   },
   {
     "id": "p24",
-    "nombre": "Pulsera Coral",
-    "tipo": "pulsera",
+    "nombre": "Anillo Coral",
+    "tipo": "anillo",
     "cat": "piedras",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-24-pulsera-coral.png"
+    "src": "assets/pieza-24-pulsera-coral.png",
+    "recortar": false
   },
   {
     "id": "a25",
     "nombre": "Arete Marrón Oscuro",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 0,
+    "precio": 10,
     "stock": 1,
-    "src": "assets/pieza-25-arete-marron-oscuro.png"
+    "src": "assets/pieza-25-arete-marron-oscuro.png",
+    "recortar": false
   }
 ]
