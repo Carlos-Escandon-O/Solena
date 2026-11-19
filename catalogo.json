@@ -124,7 +124,7 @@
     "nombre": "Anillo Dorado Cálido",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-13-pulsera-dorada-calida.png",
     "recortar": false
@@ -134,7 +134,7 @@
     "nombre": "Anillo Plateado Suave",
     "tipo": "anillo",
     "cat": "plata",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-14-pulsera-plateada-suave.png",
     "recortar": false
@@ -144,7 +144,7 @@
     "nombre": "Anillo Cobre",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-15-pulsera-cobre.png",
     "recortar": false
@@ -174,7 +174,7 @@
     "nombre": "Anillo Cobre Naranja",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-18-pulsera-cobre-naranja.png",
     "recortar": false
@@ -184,7 +184,7 @@
     "nombre": "Anillo Marrón",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-19-pulsera-marron.png",
     "recortar": false
@@ -194,7 +194,7 @@
     "nombre": "Anillo Café",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-20-pulsera-cafe.png",
     "recortar": false
@@ -214,7 +214,7 @@
     "nombre": "Anillo Ámbar",
     "tipo": "anillo",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-22-pulsera-ambar.png",
     "recortar": false
@@ -234,7 +234,7 @@
     "nombre": "Anillo Coral",
     "tipo": "anillo",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-24-pulsera-coral.png",
     "recortar": false
