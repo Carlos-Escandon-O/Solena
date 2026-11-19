@@ -4,7 +4,7 @@
     "nombre": "Collar Negro Sutil",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 170,
     "stock": 1,
     "src": "assets/pieza-01-collar-negro-sutil.png",
     "recortar": false
@@ -14,7 +14,7 @@
     "nombre": "Collar Rojo Oscuro",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 190,
     "stock": 1,
     "src": "assets/pieza-02-collar-rojo-oscuro.png",
     "recortar": false
@@ -24,7 +24,7 @@
     "nombre": "Collar Rosado Vivo",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 220,
     "stock": 1,
     "src": "assets/pieza-03-collar-rosado-vivo.png",
     "recortar": false
@@ -34,7 +34,7 @@
     "nombre": "Collar Plateado Delicado",
     "tipo": "collar",
     "cat": "plata",
-    "precio": 10,
+    "precio": 150,
     "stock": 1,
     "src": "assets/pieza-04-collar-plateado-delicado.png",
     "recortar": false
@@ -44,7 +44,7 @@
     "nombre": "Collar Dorado Clásico",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 10,
+    "precio": 200,
     "stock": 1,
     "src": "assets/pieza-05-collar-dorado-clasico.png",
     "recortar": false
@@ -54,7 +54,7 @@
     "nombre": "Collar Dorado Olivo",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 10,
+    "precio": 170,
     "stock": 1,
     "src": "assets/pieza-06-collar-dorado-olivo.png",
     "recortar": false
@@ -64,7 +64,7 @@
     "nombre": "Collar Dorado Claro",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 10,
+    "precio": 190,
     "stock": 1,
     "src": "assets/pieza-07-collar-dorado-claro.png",
     "recortar": false
@@ -74,7 +74,7 @@
     "nombre": "Collar Rojo Intenso",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 310,
     "stock": 1,
     "src": "assets/pieza-08-collar-rojo-intenso.png",
     "recortar": false
@@ -84,7 +84,7 @@
     "nombre": "Collar Champán",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 10,
+    "precio": 220,
     "stock": 1,
     "src": "assets/pieza-09-collar-champan.png",
     "recortar": false
@@ -94,7 +94,7 @@
     "nombre": "Collar Azul Marino",
     "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 190,
     "stock": 1,
     "src": "assets/pieza-10-collar-azul-marino.png",
     "recortar": false
@@ -104,17 +104,17 @@
     "nombre": "Collar Dorado Brillante",
     "tipo": "collar",
     "cat": "oro",
-    "precio": 10,
+    "precio": 230,
     "stock": 1,
     "src": "assets/pieza-11-collar-dorado-brillante.png",
     "recortar": false
   },
   {
     "id": "c12",
-    "nombre": "Pulsera Rosa Tenue",
-    "tipo": "pulsera",
+    "nombre": "Collar Rosa Tenue",
+    "tipo": "collar",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 280,
     "stock": 1,
     "src": "assets/pieza-12-collar-rosa-tenue.png",
     "recortar": false
@@ -154,7 +154,7 @@
     "nombre": "Arete Dorado Largo",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 10,
+    "precio": 250,
     "stock": 1,
     "src": "assets/pieza-16-arete-dorado-largo.png",
     "recortar": false
@@ -164,7 +164,7 @@
     "nombre": "Pulsera Negra Minimalista",
     "tipo": "pulsera",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 180,
     "stock": 1,
     "src": "assets/pieza-17-collar-negro-minimalista.png",
     "recortar": false
@@ -204,7 +204,7 @@
     "nombre": "Arete Dorado Claro",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 10,
+    "precio": 100,
     "stock": 1,
     "src": "assets/pieza-21-arete-dorado-claro.png",
     "recortar": false
@@ -224,7 +224,7 @@
     "nombre": "Arete Rosado",
     "tipo": "aretes",
     "cat": "piedras",
-    "precio": 10,
+    "precio": 320,
     "stock": 1,
     "src": "assets/pieza-23-arete-rosado.png",
     "recortar": false
@@ -244,7 +244,7 @@
     "nombre": "Arete Marrón Oscuro",
     "tipo": "aretes",
     "cat": "oro",
-    "precio": 10,
+    "precio": 180,
     "stock": 1,
     "src": "assets/pieza-25-arete-marron-oscuro.png",
     "recortar": false
