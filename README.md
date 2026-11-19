@@ -9,6 +9,8 @@ Usa la cámara o una foto subida + MediaPipe (gratis) para colocar aretes, colla
 
 Publicado con GitHub Pages (HTTPS, funciona desde el celular).
 
+**Instagram de la marca:** https://www.instagram.com/solennamx/ (enlazado en el botón del probador y en el pie de página).
+
 ## 📁 Estructura del proyecto
 
 ```
