@@ -23,13 +23,13 @@
   }
   header{padding:22px 20px 10px;text-align:center;position:relative}
   .ig-mini{
-    position:absolute;top:18px;right:20px;width:40px;height:40px;
-    display:flex;align-items:center;justify-content:center;border-radius:50%;
-    font-size:19px;text-decoration:none;
-    background:linear-gradient(135deg,#f09433,#dc2743 55%,#bc1888);
-    box-shadow:0 5px 14px rgba(188,24,136,.28);transition:.18s;
+    position:absolute;top:16px;right:18px;width:42px;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;transition:.18s;
   }
+  .ig-mini svg{width:100%;height:100%}
   .ig-mini:hover{transform:translateY(-2px)}
+  .ig-logo{width:19px;height:19px;vertical-align:-5px;margin-right:6px}
   .logo{font-family:'Great Vibes',Georgia,cursive;font-size:66px;line-height:1.05;margin:0;color:#2a2318;font-weight:400}
   .tagline{margin:6px 0 0;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
   main{
@@ -103,6 +103,7 @@
     display:block;width:100%;padding:13px;border:0;border-radius:12px;
     background:linear-gradient(135deg,#c99a37,#a8761f);color:#fff;
     font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(168,118,31,.28);transition:.18s;
+    text-align:center;
   }
   .btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
   .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:500}
@@ -124,7 +125,7 @@
     .logo{font-size:46px}
     .tagline{font-size:10px;letter-spacing:.2em;margin-top:2px}
     .ig-mini{top:10px;right:12px;width:36px;height:36px;font-size:17px}
-    main{padding:10px 12px calc(96px + env(safe-area-inset-bottom));gap:12px}
+    main{padding:10px 12px calc(126px + env(safe-area-inset-bottom));gap:12px}
     .stage{min-height:0;height:min(56vh,480px);border-radius:16px}
     #canvas{width:auto;height:auto;max-width:100%;max-height:100%}
     .counter{top:10px;left:10px;padding:7px 11px;font-size:11px}
@@ -151,32 +152,44 @@
     .row label{min-width:68px;font-size:12px}
     .btn{padding:14px;font-size:15px}
     .btn-row{gap:8px}
-    .avanzado{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
-    .avanzado summary{font-size:12px;color:var(--muted);cursor:pointer;padding:6px 0}
-    .avanzado .row{margin-top:6px}
     .mobile-bar{
-      position:fixed;left:0;right:0;bottom:0;z-index:20;
-      display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:8px;
+      display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;
       padding:8px 12px calc(8px + env(safe-area-inset-bottom));
-      background:rgba(255,253,248,.95);backdrop-filter:blur(12px);
+      background:rgba(255,253,248,.96);backdrop-filter:blur(12px);
       border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(60,45,20,.10);
     }
-    .mb-btn{
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-      min-height:50px;border:1px solid var(--line);border-radius:12px;background:#fff;
-      color:var(--ink);font-size:17px;text-decoration:none;cursor:pointer;
+    .mb-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+    .mb-row + .mb-row{margin-top:6px}
+    .mb-adjust{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+    .mb-adjust span{min-width:18px;text-align:center;font-size:14px}
+    .mb-adjust input[type=range]{flex:1;min-width:0;accent-color:var(--gold)}
+    .mb-center{
+      padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;
+      color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;
     }
-    .mb-btn span{font-size:11px;font-weight:600}
-    .mb-btn.primary{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-color:transparent}
-    .mb-btn:disabled{opacity:.5}
     footer{padding:14px 16px 24px;line-height:1.8}
   }
 </style>
 </head>
 <body>
 
+<!-- Logo oficial de Instagram, reutilizado en la cabecera y los botones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#feda75"/><stop offset=".28" stop-color="#fa7e1e"/>
+      <stop offset=".52" stop-color="#d62976"/><stop offset=".76" stop-color="#962fbf"/>
+      <stop offset="1" stop-color="#4f5bd5"/>
+    </linearGradient>
+    <symbol id="igLogo" viewBox="0 0 24 24">
+      <rect width="24" height="24" rx="7" fill="url(#igGrad)"/>
+      <path fill="#fff" d="M12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947C23.727 2.694 21.309.272 16.947.073 15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header>
-  <a class="ig-mini" href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" aria-label="Instagram de Solenna">📸</a>
+  <a class="ig-mini" href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" aria-label="Instagram de Solenna"><svg aria-hidden="true"><use href="#igLogo"/></svg></a>
   <h1 class="logo">Solenna</h1>
   <p class="tagline">Probador virtual</p>
 </header>
@@ -251,15 +264,7 @@
       <div class="row"><label for="scale">Tamaño</label><input type="range" id="scale" min="0.3" max="2.5" step="0.05" value="1"></div>
       <div class="btn-row">
         <button class="btn secondary" id="resetBtn">Centrar</button>
-        <button class="btn secondary" id="clearImgBtn">Quitar mi foto</button>
       </div>
-      <details class="avanzado">
-        <summary>Subir mi propia joya (PNG)</summary>
-        <div class="row" style="display:block">
-          <input type="file" id="upload" accept="image/png,image/webp,image/jpeg">
-          <p class="hint">Sube tu PNG con fondo transparente y reemplaza la pieza elegida.</p>
-        </div>
-      </details>
     </div>
 
     <div class="card">
@@ -269,7 +274,7 @@
         <button class="btn secondary" id="shareBtn" style="display:none">Compartir</button>
       </div>
       <button class="btn whatsapp" id="waBtn" style="margin-top:10px">💬 Pedir esta joya por WhatsApp</button>
-      <a class="btn instagram" href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" style="margin-top:10px">📸 Síguenos en Instagram</a>
+      <a class="btn instagram" href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" style="margin-top:10px"><svg class="ig-logo" aria-hidden="true"><use href="#igLogo"/></svg>Síguenos en Instagram</a>
       <div class="result" id="result">
         <img id="resultImg" alt="Tu prueba">
         <a class="btn" id="download" download="solenna-prueba.png" style="margin-top:10px">Descargar imagen</a>
@@ -279,10 +284,15 @@
   </aside>
 </main>
 
-<nav class="mobile-bar" aria-label="Acciones rápidas">
-  <button class="mb-btn" id="mbFoto" aria-label="Tomar foto">📷<span>Foto</span></button>
-  <a class="mb-btn" href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" aria-label="Instagram de Solenna">📸<span>Instagram</span></a>
-  <button class="mb-btn primary" id="mbPedir" aria-label="Pedir por WhatsApp">💬<span>Pedir</span></button>
+<nav class="mobile-bar" aria-label="Ajustes rápidos">
+  <div class="mb-row">
+    <div class="mb-adjust"><span>↔</span><input type="range" id="mx" min="-0.25" max="0.25" step="0.005" value="0" aria-label="Mover a los lados"></div>
+    <div class="mb-adjust"><span>↕</span><input type="range" id="my" min="-0.25" max="0.25" step="0.005" value="0" aria-label="Mover arriba y abajo"></div>
+  </div>
+  <div class="mb-row">
+    <div class="mb-adjust"><span>Tamaño</span><input type="range" id="mscale" min="0.3" max="2.5" step="0.05" value="1" aria-label="Tamaño de la pieza"></div>
+    <button class="mb-center" id="mbCentrar">Centrar</button>
+  </div>
 </nav>
 
 <footer>Hecho con cariño para Solenna · Brillo y sabor 💛 · <a href="https://www.instagram.com/solennamx/" target="_blank" rel="noopener" style="color:#9a8f7e">Instagram</a> · <a href="admin.html" style="color:#9a8f7e">Admin</a></footer>
@@ -324,7 +334,6 @@ const state = {
   modo: 'camara',
   cameraOn: false,
   photo: null,
-  custom: { aretes: null, collar: null, anillo: null, pulsera: null },
   offsets: {
     aretes: { x: 0, y: 0.012, scale: 1 },
     collar: { x: 0, y: 0.02, scale: 1 },
@@ -573,8 +582,7 @@ function manoEstable(detectadas){
   return [manoSuavizada];
 }
 function imagenActiva(){
-  return state.custom[state.tipo] ||
-    (state.pieza && state.pieza.tipo === state.tipo ? state.pieza.img : null);
+  return state.pieza && state.pieza.tipo === state.tipo ? state.pieza.img : null;
 }
 function drawImg(img, cx, cy, w, h, rot=0, anchorY=0.5){
   if (!usable(img)) return;
@@ -762,18 +770,16 @@ function setCardStatus(msg, isError=false){
 }
 function syncControls(){
   const o = state.offsets[state.tipo];
-  document.getElementById('x').value = o.x;
-  document.getElementById('y').value = o.y;
-  document.getElementById('scale').value = o.scale;
+  ['x','y','scale'].forEach(id => {
+    document.getElementById(id).value = o[id];
+    document.getElementById('m'+id).value = o[id];
+  });
   document.getElementById('dedoRow').style.display = state.tipo==='anillo' ? 'flex' : 'none';
   document.querySelectorAll('#tipoTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.tipo===state.tipo));
   const agotado = state.pieza && state.pieza.stock !== undefined && state.pieza.stock <= 0;
   const wa = document.getElementById('waBtn');
   wa.disabled = !!agotado;
   wa.textContent = agotado ? '💬 Pieza agotada' : '💬 Pedir esta joya por WhatsApp';
-  const mb = document.getElementById('mbPedir');
-  mb.disabled = !!agotado;
-  mb.querySelector('span').textContent = agotado ? 'Agotado' : 'Pedir';
   document.getElementById('piezaActiva').textContent = state.pieza ? state.pieza.nombre : '';
 }
 function pintarGrid(){
@@ -837,24 +843,22 @@ document.querySelectorAll('#filtros .chip').forEach(b => b.onclick = () => {
 });
 document.getElementById('orden').onchange = e => { state.orden = e.target.value; pintarGrid(); };
 document.getElementById('dedo').onchange = e => { state.dedo = parseInt(e.target.value); refrescar(); };
-['x','y','scale'].forEach(id => {
-  document.getElementById(id).oninput = e => {
-    state.offsets[state.tipo][id] = parseFloat(e.target.value);
+/* Los sliders del panel y los de la barra móvil manejan el mismo valor */
+[['x','mx'],['y','my'],['scale','mscale']].forEach(([id, mid]) => {
+  const aplicar = e => {
+    const v = parseFloat(e.target.value);
+    state.offsets[state.tipo][id] = v;
+    document.getElementById(id).value = v;
+    document.getElementById(mid).value = v;
     refrescar();
   };
+  document.getElementById(id).oninput = aplicar;
+  document.getElementById(mid).oninput = aplicar;
 });
 document.getElementById('resetBtn').onclick = () => {
   const defs = { aretes:{x:0,y:.012,scale:1}, collar:{x:0,y:.02,scale:1}, anillo:{x:0,y:0,scale:1}, pulsera:{x:0,y:0,scale:1} };
   state.offsets[state.tipo] = {...defs[state.tipo]};
   syncControls(); refrescar();
-};
-document.getElementById('clearImgBtn').onclick = () => { state.custom[state.tipo] = null; refrescar(); setStatus('Pieza del catálogo restaurada.'); };
-document.getElementById('upload').onchange = e => {
-  const f = e.target.files && e.target.files[0];
-  if (!f) return;
-  const img = new Image();
-  img.onload = () => { state.custom[state.tipo] = img; refrescar(); setStatus('Tu pieza ya se está usando.'); };
-  img.src = URL.createObjectURL(f);
 };
 document.getElementById('photoInput').onchange = e => {
   const f = e.target.files && e.target.files[0];
@@ -913,9 +917,8 @@ document.getElementById('waBtn').onclick = () => {
   }
   window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
 };
-/* Barra rápida móvil: reutiliza las mismas acciones del panel */
-document.getElementById('mbFoto').onclick = () => document.getElementById('shotBtn').click();
-document.getElementById('mbPedir').onclick = () => document.getElementById('waBtn').click();
+/* Barra móvil: Centrar usa la misma acción del panel */
+document.getElementById('mbCentrar').onclick = () => document.getElementById('resetBtn').click();
 
 document.getElementById('startBtn').onclick = startCamera;
 pintarContador(leerContador());
