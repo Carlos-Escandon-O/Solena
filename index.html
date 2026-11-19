@@ -66,6 +66,21 @@
     font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     backdrop-filter:blur(6px);box-shadow:0 4px 14px rgba(0,0,0,.25);
   }
+  .fs-btn{
+    position:absolute;right:14px;bottom:14px;z-index:3;
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(255,255,255,.18);border-radius:12px;
+    background:rgba(42,35,24,.84);color:#fff6e2;font-size:20px;line-height:1;
+    cursor:pointer;backdrop-filter:blur(6px);transition:.18s;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+  }
+  .fs-btn:hover{background:rgba(42,35,24,.96);transform:translateY(-2px)}
+  .stage:fullscreen,.stage:-webkit-full-screen,.stage.is-fullscreen{
+    position:fixed;inset:0;z-index:9999;width:100vw;height:100vh;border-radius:0;background:#000;
+  }
+  .stage:fullscreen #canvas,.stage:-webkit-full-screen #canvas,.stage.is-fullscreen #canvas{
+    width:auto;height:auto;max-width:100%;max-height:100%;
+  }
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;
     box-shadow:0 8px 26px rgba(60,45,20,.07);
@@ -130,6 +145,7 @@
     #canvas{width:auto;height:auto;max-width:100%;max-height:100%}
     .counter{top:10px;left:10px;padding:7px 11px;font-size:11px}
     .pieza-activa{top:10px;right:10px;padding:7px 10px;font-size:11px;max-width:52%}
+    .fs-btn{display:none}
     .placeholder{gap:10px;padding:20px}
     .placeholder .ring-icon{font-size:42px}
     .placeholder h2{font-size:22px}
@@ -192,6 +208,7 @@
       <button class="btn" id="startBtn" style="max-width:240px">Activar cámara</button>
       <div class="status" id="status"></div>
     </div>
+    <button class="fs-btn" id="fsBtn" title="Ver en pantalla completa" aria-label="Ver en pantalla completa">⛶</button>
   </section>
 
   <aside>
@@ -904,6 +921,49 @@ document.getElementById('waBtn').onclick = () => {
 };
 /* Barra móvil: Centrar usa la misma acción del panel */
 document.getElementById('mbCentrar').onclick = () => document.getElementById('resetBtn').click();
+
+/* Pantalla completa de la vista (escritorio) */
+const stageEl = document.querySelector('.stage');
+const fsBtn = document.getElementById('fsBtn');
+function enFullscreen(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement) || stageEl.classList.contains('is-fullscreen');
+}
+function syncFsBtn(){
+  const activo = enFullscreen();
+  fsBtn.textContent = activo ? '✕' : '⛶';
+  fsBtn.title = activo ? 'Salir de pantalla completa' : 'Ver en pantalla completa';
+  fsBtn.setAttribute('aria-label', fsBtn.title);
+}
+function salirPantalla(){
+  if (document.fullscreenElement || document.webkitFullscreenElement){
+    const salir = document.exitFullscreen || document.webkitExitFullscreen;
+    if (salir){ const p = salir.call(document); if (p && p.catch) p.catch(()=>{}); }
+  }
+  stageEl.classList.remove('is-fullscreen');
+  syncFsBtn();
+}
+function fallbackFullscreen(){
+  stageEl.classList.add('is-fullscreen');
+  syncFsBtn();
+}
+fsBtn.onclick = () => {
+  if (enFullscreen()){ salirPantalla(); return; }
+  const entrar = stageEl.requestFullscreen || stageEl.webkitRequestFullscreen;
+  if (!entrar){ fallbackFullscreen(); return; }
+  const p = entrar.call(stageEl);
+  if (p && typeof p.then === 'function'){
+    p.then(syncFsBtn).catch(fallbackFullscreen);
+  } else {
+    setTimeout(() => {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) fallbackFullscreen();
+    }, 60);
+  }
+};
+document.addEventListener('fullscreenchange', syncFsBtn);
+document.addEventListener('webkitfullscreenchange', syncFsBtn);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && stageEl.classList.contains('is-fullscreen')) salirPantalla();
+});
 
 document.getElementById('startBtn').onclick = startCamera;
 pintarContador(leerContador());
