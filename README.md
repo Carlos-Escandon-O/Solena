@@ -31,8 +31,7 @@ Solenna/
 
 - **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
 - **Catálogo interno de 17 piezas de ejemplo**: 16 de ejemplo + 1 pieza real (Collar Vaquero, $850), con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
-- **`catalogo.json` como fuente de verdad del inventario**: 38 piezas editables desde el panel Admin (nombre, tipo, categoría, precio, stock, imagen). Los precios del `catalogo.json` están en 0 hasta que los configures en el panel.
-- ⚠️ El ejemplo "Collar Vaquero" referencia `assets/collar-vaquero.png`, que **no está aún en el repo** — al ser un ejemplo, el sitio funciona sin ella (o bien sustituye la imagen o cambia `src` en `index.html`).
+- **`catalogo.json` como fuente de verdad del inventario**: 38 piezas editables desde el panel Admin (nombre, tipo, categoría, precio, stock, imagen). Los precios del `catalogo.json` están en 0 hasta que los configures en el panel; la web muestra "Consultar precio" para las piezas con precio 0.
 - **Ajuste manual** de posición y tamaño, dedo para anillos, muñeca para pulseras, y opción de subir tu propia joya en PNG.
 - **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
 - **Foto descargable** y botón compartir.

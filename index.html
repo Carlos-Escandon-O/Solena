@@ -691,8 +691,8 @@ function syncControls(){
 }
 function pintarGrid(){
   let items = CATALOGO.filter(p => state.filtro==='todos' || p.cat===state.filtro);
-  if (state.orden==='asc') items = [...items].sort((a,b)=>a.precio-b.precio);
-  if (state.orden==='desc') items = [...items].sort((a,b)=>b.precio-a.precio);
+  if (state.orden==='asc') items = [...items].sort((a,b)=>(a.precio>0?a.precio:Infinity)-(b.precio>0?b.precio:Infinity));
+  if (state.orden==='desc') items = [...items].sort((a,b)=>(b.precio>0?b.precio:-Infinity)-(a.precio>0?a.precio:-Infinity));
   if (state.orden==='nombre') items = [...items].sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
   document.getElementById('grid').innerHTML = items.map(p => {
     const agotado = p.stock !== undefined && p.stock <= 0;
@@ -700,7 +700,7 @@ function pintarGrid(){
     return `
     <button class="pieza ${p.id===state.pieza.id?'active':''} ${agotado?'agotada':''}" data-id="${p.id}">
       <img src="${p.img.src}" alt="${p.nombre}">
-      <b>${p.nombre}</b><span>$${p.precio}</span>
+      <b>${p.nombre}</b><span>${p.precio>0?'$'+p.precio:'Consultar precio'}</span>
       ${label ? `<em>${label}</em>` : ''}
     </button>`;
   }).join('');
@@ -816,7 +816,9 @@ document.getElementById('shareBtn').onclick = async () => {
 };
 document.getElementById('waBtn').onclick = () => {
   const p = state.pieza;
-  const texto = `Hola Solenna 💛 Me interesa ${p.nombre} ($${p.precio}) que probé en tu probador virtual. ¿Sigue disponible?`;
+  const texto = p.precio > 0
+    ? `Hola Solenna 💛 Me interesa ${p.nombre} ($${p.precio}) que probé en tu probador virtual. ¿Sigue disponible?`
+    : `Hola Solenna 💛 Me interesa ${p.nombre}, que probé en tu probador virtual. ¿Me lo cotizas? ¿Sigue disponible?`;
   if (WHATSAPP.startsWith('521000')){
     if (navigator.clipboard) navigator.clipboard.writeText(texto).catch(()=>{});
     setCardStatus('Falta tu número: edita WHATSAPP en el código (ver README). Copié el mensaje mientras tanto.', true);
