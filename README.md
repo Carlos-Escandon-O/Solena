@@ -16,8 +16,8 @@ Solenna/
 ├── index.html              # web principal (probador virtual)
 ├── admin.html              # panel de administración del inventario
 ├── preparar-fotos.html     # herramienta auxiliar para preparar fotos
-├── catalogo.json           # inventario real (38 piezas, editable desde /admin.html)
-├── assets/                 # 39 PNGs de joyería (transparent background)
+├── catalogo.json           # inventario real (25 piezas, editable desde /admin.html)
+├── assets/                 # PNGs de joyería con fondo transparente
 ├── fotos-crudas/           # tus fotos sin recortar (para preparar_fotos.py)
 ├── preparar_fotos.py       # recorte automático (rembg + BiRefNet) → assets/
 ├── fotos_app.py            # interfaz web local para el mismo flujo de recorte
@@ -31,7 +31,7 @@ Solenna/
 
 - **Dos modos:** cámara en vivo o subir una selfie guardada (ideal si no quieres abrir la cámara en el bazar).
 - **Catálogo interno de 17 piezas de ejemplo**: 16 de ejemplo + 1 pieza real (Collar Vaquero, $850), con filtros **Oro / Plata / Perlas / Piedras** y orden por precio o nombre.
-- **`catalogo.json` como fuente de verdad del inventario**: 38 piezas editables desde el panel Admin (nombre, tipo, categoría, precio, stock, imagen). Los precios del `catalogo.json` están en 0 hasta que los configures en el panel; la web muestra "Consultar precio" para las piezas con precio 0.
+- **`catalogo.json` como fuente de verdad del inventario**: 25 piezas editables desde el panel Admin (nombre, tipo, categoría, precio, stock, imagen). Los precios del `catalogo.json` están en 0 hasta que los configures en el panel; la web muestra "Consultar precio" para las piezas con precio 0.
 - **Ajuste manual** de posición y tamaño, dedo para anillos, muñeca para pulseras, y opción de subir tu propia joya en PNG.
 - **Pedir por WhatsApp:** abre un chat con el nombre y precio de la pieza ya escritos.
 - **Foto descargable** y botón compartir.
@@ -129,7 +129,7 @@ Si ya tienes la joya con fondo transparente desde otra herramienta, puedes salta
 ```
 
 3. Las imágenes van en `assets/` y se recortan con fondo transparente (ver `ESPECIFICACIONES_FOTOS.md` o usa `preparar_fotos.py`).
-4. Con 5–10 piezas reales ya es usable como catálogo; hoy hay 38 piezas de ejemplo con `precio: 0` esperando que las personalices o las sustituyas por las tuyas.
+4. Con 5–10 piezas reales ya es usable como catálogo; hoy hay 25 piezas reales con `precio: 0` esperando que las personalices en el panel Admin.
 
 ## Notas
 
